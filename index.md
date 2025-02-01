@@ -1,7 +1,6 @@
-# Header 1
-## Header 2
+# Jack Strope
+## ECE 5160
 
-* Item 1
-* Item 2
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
 
-[RedBlue](https://www.sometimesredsometimesblue.com)
+#### My name is Jack Strope and I'm an MEng student in ECE.
