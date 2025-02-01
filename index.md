@@ -5,4 +5,4 @@
 
 #### My name is Jack Strope and I'm an MEng student in ECE. This site will serve as a portfolio for class projects for Fast Robots.
 
-[View on GitHub]([https://www.google.com](https://github.com/JackStrope/JackStrope.github.io))
+[View on GitHub](https://github.com/JackStrope/JackStrope.github.io)
