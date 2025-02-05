@@ -65,14 +65,101 @@
                             <p>In this part of the lab, I hooked up the Artemis board to my laptop and uploaded several example programs to test the hardware.</p>
                             <div class="subheading mb-3">Blink</div>
                             <p>After connecting the board to my computer and selecting the board in the Arduino IDE, I ran Blink, an example sketch built in to the Arduino IDE. The program simply swithces the onboard LED on and off every second.</p>
-                            <!-- <p align="center"> -->
+                            <p align="center">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/0uykq8tEe2I?si=udffNvAfnh5zDZfs"
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
                                 </iframe>
-                            <!-- </p> -->
+                            </p>
+                            <div class="subheading mb-3">Serial</div>
+                            <p>The next example script run on the board was Serial, which allows the user to type characters into the Serial Monitor in the Arduino IDE and echoes them back.</p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/S-UKg5_U6-M?si=PeaNl0l8xNDBQ4Rp"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <div class="subheading mb-3">Temperature Sensor</div>
+                            <p>The next example script run was AnalogRead, modified to continuously print the temperature sensor's reading in Fahrenheit. Notice in the video below, the temperature starts around 85&deg;F, but after blowing on it for a couple seconds, it lowers to around 82&deg;F.</p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/wAE6XcBU8TY?si=5ozjm3ATQ2xYbMK-"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <div class="subheading mb-3">Microphone</div>
+                            <p>The last example script run is MicrophoneOutput, which displays the loudest frequency detected by the microphone.</p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/xSPRAWHourM?si=k4HLLJKTcufKPk_4"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <div class="subheading mb-3">Middle C Detector</div>
+                            <p>Since I'm enrolled in the 5000-level version of the class, I did the additional task of making my own script to blink the LED when a "C" note (~261Hz) is the loudest frequency. To do so, I simply modified the MicrophoneOutput script, adding a simple conditional that writes HIGH to the LED if the loudest frequency is between 258Hz and 264Hz (to account for noise/interference that affect the reading) and LOW otherwise.</p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/mUHA8onSOqU?si=kfrdvS7dUO1k9WyG"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
                         </div>
                     </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Lab 1B</h3>
+                            <p>In this part of the lab, I established Bluetooth communication between the Artemis board and my laptop via Bluetooth Low Energy (BLE).</p>
+                            <div class="subheading mb-3">Prelab</div>
+                            <p>After ensuring the latest version of Python was installed on my computer, I set up a virtual environment, installed the necessary Python libraries, and installed the codebase provided in the lab handout. I then activated the virtual environment and launched JupyterLab.</p>
+                            <p>The next step was to establish a connection between JupyterLab on my computer and the Artemis board via BLE. To do so, I first ran the ble_arduino.ino script from the codebase on the board to print its MAC address. I copied this into the file connections.yaml in the Python virtual environment. I then generated a UUID using the uuid library in JupyterLab and copied it to both connections.yaml and ble_arduino.ino. I then verified that the connection between the board and computer was successful with some test commands provided in a demo Jupyter notebook.</p>
+                            <div class="subheading mb-3">Task 1</div>
+                            <p>First, I implemented the ECHO command, which simply sends the input string back with an added prefix and postfix. The implementation is shown below.</p>
+                            <img src="assets/img/echo_code.png" width="620" height="410" alt="...">
+                            <p align="center"></p>
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/2C2rG41n7QY?si=oXK7ZcenfWlVdzP1"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <div class="subheading mb-3">Task 2</div>
+                            <p>The next task was to use the SEND_THREE_FLOATS command, which extracts the three floats from the message sent from JupyterLab to the board and prints them to the serial monitor. The implementation is shown below.</p>
+                            <img src="assets/img/send_three_floats_code.png" width="542" height="320" alt="...">
+                            <p align="center"></p>
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/17dOKtxjBw8?si=d5fgCuDH3ci9hsQU"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <div class="subheading mb-3">Task 3</div>
+                            <p>Next, I added a new command GET_TIME_MILLIS which makes the Artemis board respond with the current time in milliseconds.</p>
+                            <img src="assets/img/get_time_millis_code.png" width="502" height="306" alt="...">
+                            <p align="center"></p>
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/28pNqyaM_9s?si=3Zkf5FUB63ApMia-"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <div class="subheading mb-3">Task 4</div>
+                            <p>Next, I defined a notification handler in the Jupyter notebook to extract the time from the response string sent by the GET_TIME_MILLIS command. The following code snippets show the handler and then the commands used to receive the time using the handler.</p>
+                            <img src="assets/img/handler.png" width="574" height="274" alt="...">
+                            <p align="center"></p>
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/NymV2kfQgXY?si=JbmA-qSp7hPYb-aj"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <div class="subheading mb-3">Task 5</div>
+                            <p>In this task, I determined how fast messages can be sent by making a new command that repeatedly sends the current time in milliseconds to Jupyter for 100 iterations.</p>
+                            <img src="assets/img/task5.png" width="518" height="378" alt="...">
+                            <p>The code used to receive the messages in Jupyter accepts messages for 10 seconds to ensure all 100 go through. This code and the first several received timestamps are shown below.</p>
+                            <img src="assets/img/task5_output.png" width="587" height="348" alt="...">
+                            <p>By subtracting the last timestamp from the first and dividing by the number of messages, we calculate the effective data transfer rate to be 100 messages / (26.165s - 23.596s) = 38.926 messages per second.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5"></div>
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Discussion</h3>
+                            <p>In this lab, I learned how to connect and program the Artemis board using the Arduino IDE, and how to connect to it from my computer via Bluetooth. The ability to connect to the board this way will be extremely useful when the board is on the robot--it won't be plugged into my computer then, so a method of wireless communication with the robot will be necessary. Evaluating how fast data can be sent with different methods will also prove useful in deciding what methods to use for communication with the robot in future labs.</p>
                 </div>
             </section>
             <hr class="m-0" />
