@@ -27,8 +27,8 @@
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab1">Lab 1</a></li>
-                    <!-- <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab2">Lab 2</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab3">Lab 3</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab2">Lab 2</a></li>
+                    <!-- <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab3">Lab 3</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab4">Lab 4</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab5">Lab 5</a></li> -->
                 </ul>
@@ -114,7 +114,7 @@
                             <p>The next step was to establish a connection between JupyterLab on my computer and the Artemis board via BLE. To do so, I first ran the ble_arduino.ino script from the codebase on the board to print its MAC address. I copied this into the file connections.yaml in the Python virtual environment. I then generated a UUID using the uuid library in JupyterLab and copied it to both connections.yaml and ble_arduino.ino. I then verified that the connection between the board and computer was successful with some test commands provided in a demo Jupyter notebook.</p>
                             <div class="subheading mb-3">Task 1</div>
                             <p>First, I implemented the ECHO command, which simply sends the input string back with an added prefix and postfix. The implementation is shown below.</p>
-                            <img src="assets/img/echo_code.png" width="620" height="410" alt="...">
+                            <img src="assets/lab1_img/echo_code.png" width="620" height="410" alt="...">
                             <p align="center">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/2C2rG41n7QY?si=oXK7ZcenfWlVdzP1"
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -123,7 +123,7 @@
                             </p>
                             <div class="subheading mb-3">Task 2</div>
                             <p>The next task was to use the SEND_THREE_FLOATS command, which extracts the three floats from the message sent from JupyterLab to the board and prints them to the serial monitor. The implementation is shown below.</p>
-                            <img src="assets/img/send_three_floats_code.png" width="542" height="320" alt="...">
+                            <img src="assets/lab1_img/send_three_floats_code.png" width="542" height="320" alt="...">
                             <p align="center">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/17dOKtxjBw8?si=d5fgCuDH3ci9hsQU"
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -132,7 +132,7 @@
                             </p>
                             <div class="subheading mb-3">Task 3</div>
                             <p>Next, I added a new command GET_TIME_MILLIS which makes the Artemis board respond with the current time in milliseconds.</p>
-                            <img src="assets/img/get_time_millis_code.png" width="502" height="306" alt="...">
+                            <img src="assets/lab1_img/get_time_millis_code.png" width="502" height="306" alt="...">
                             <p align="center">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/28pNqyaM_9s?si=3Zkf5FUB63ApMia-"
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -141,7 +141,7 @@
                             </p>
                             <div class="subheading mb-3">Task 4</div>
                             <p>Next, I defined a notification handler in the Jupyter notebook to extract the time from the response string sent by the GET_TIME_MILLIS command. The following code snippets show the handler and then the commands used to receive the time using the handler.</p>
-                            <img src="assets/img/handler.png" width="574" height="274" alt="...">
+                            <img src="assets/lab1_img/handler.png" width="574" height="274" alt="...">
                             <p align="center">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/NymV2kfQgXY?si=JbmA-qSp7hPYb-aj"
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -150,9 +150,9 @@
                             </p>
                             <div class="subheading mb-3">Task 5</div>
                             <p>In this task, I determined how fast messages can be sent by making a new command that repeatedly sends the current time in milliseconds to Jupyter for 100 iterations.</p>
-                            <img src="assets/img/task5.png" width="518" height="378" alt="...">
+                            <img src="assets/lab1_img/task5.png" width="518" height="378" alt="...">
                             <p>The code used to receive the messages in Jupyter accepts messages for 10 seconds to ensure all 100 go through. This code and the first several received timestamps are shown below.</p>
-                            <img src="assets/img/task5_output.png" width="587" height="348" alt="...">
+                            <img src="assets/lab1_img/task5_output.png" width="587" height="348" alt="...">
                             <p>By subtracting the last timestamp from the first and dividing by the number of messages, we calculate the effective data transfer rate to be 100 messages / (26.165s - 23.596s) = 38.926 messages per second.</p>
                         </div>
                     </div>
@@ -164,29 +164,106 @@
             </section>
             <hr class="m-0" />
             <!-- Lab 2 -->
-            <!-- <section class="resume-section" id="lab2">
+            <section class="resume-section" id="lab2">
                 <div class="resume-section-content">
                     <h2 class="mb-5">Lab 2</h2>
+                    <p>In this lab, I tested the IMU by gathering accelerometer and gyroscope data. This data will allow the robot to keep track of its orientation and acceleration. At the end of the lab, I also tried controlling the RC car as it comes in the box with the controller to get a feel for how it can move, and recorded a couple of stunts.</p>
                     <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
-                            <h3 class="mb-0">University of Colorado Boulder</h3>
-                            <div class="subheading mb-3">Bachelor of Science</div>
-                            <div>Computer Science - Web Development Track</div>
-                            <p>GPA: 3.23</p>
+                            <h3 class="mb-0">Setup</h3>
+                            <p>Setting up the IMU with the Artemis board was fairly straightforward. After installing the necessary library in the Arduino IDE, I connected the IMU to the board using a QWIIC connector. I then ran the library's example script, which collects and prints the sensor's acceleration, gyroscope, magnetometer, and temperature data. The data is sent to the MCU via I2C, so to identify which device to receive data from, the script defines a macro AD0_VAL, the last bit of the I2C address. For the IMU, this value is 1 by default. Additionally, I added the following code to the setup() function in this script and the BLE script to serve as an indication of when the board starts running.</p>
+                            <img src="assets/lab2_img/blink_on_startup.png" width="463" height="193" alt="...">
+                            <p>To more easily monitor the x, y, and z acceleration data, I opened the Serial Plotter, which plots the data in real time. This is shown in the video below. When the IMU sits flat on a surface, the x and y acceleration curves stay steady around 0, while the z curve stays steady around 1000 milli-g, or 1g of acceleration. This is due to gravity accelerating the board downward at 1g at all times. If I accelerate the board in any direction, the curve cooresponding to that direction responds accordingly. If I rotate the board, the acceleration due to gravity shifts from the z-direction to the x/y directions.</p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/VDpDZS0kkV4?si=A5ejh0NfnHHD8oSl"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
                         </div>
-                        <div class="flex-shrink-0"><span class="text-primary">August 2006 - May 2010</span></div>
                     </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between">
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
-                            <h3 class="mb-0">James Buchanan High School</h3>
-                            <div class="subheading mb-3">Technology Magnet Program</div>
-                            <p>GPA: 3.56</p>
+                            <h3 class="mb-0">Accelerometer</h3>
+                            <p>Next, I modified the example script to calculate the roll and pitch of the IMU using the following equations.</p>
+                            <img src="assets/lab2_img/roll_pitch_equations.png" width="555" height="53" alt="...">
+                            <p>To check the accuracy, I recorded the measured roll and pitch for -90&deg;, 0&deg;, and 90&deg;. For 0&deg; for both roll and pitch, I held the IMU down on a flat surface. I measured -90&deg; and 90&deg; for roll and pitch separately, placing the IMU at 90&deg; relative to the horizontal by holding it against the side of a box on the desk. The results are shown in the images below.</p>
+                            <figure>
+                                <img src="assets/lab2_img/pitch_roll_0.jpg" style="width:50%" alt="...">
+                                <figcaption>0&deg; roll and pitch</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="assets/lab2_img/roll_-90.jpg" style="width:50%" alt="...">
+                                <figcaption>-90&deg; roll</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="assets/lab2_img/roll_90.jpg" style="width:50%" alt="...">
+                                <figcaption>90&deg; roll</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="assets/lab2_img/pitch_-90.jpg" style="width:50%" alt="...">
+                                <figcaption>-90&deg; pitch</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="assets/lab2_img/pitch_90.jpg" style="width:50%" alt="...">
+                                <figcaption>90&deg; pitch</figcaption>
+                            </figure>
+                            <p>Though noisy, the data appears very accurate, to within a degree or two in each of the above measurements.</p>
+                            <div class="subheading mb-3">Time-domain Plots</div>
+                            <p>To analyze the data in Python, I added a new command to the BLE script to continuously calculate the roll and pitch in a loop and send the data (with timestamps) to Jupyter. With the data in Jupyter, I then plotted roll and pitch vs time. The results are in the plots below.</p>
+                            <img src="assets/lab2_img/roll_time.png" style="width:50%" alt="...">
+                            <img src="assets/lab2_img/pitch_time.png" style="width:50%" alt="...">
+                            <div class="subheading mb-3">Noise Frequency Analysis</div>
+                            <p>We can analyze the frequency of the noise by plotting the Fourier Transform of the data. To do so, I used the following Python code to compute and plot the FFT of the roll and pitch data.</p>
+                            <img src="assets/lab2_img/fft_code.png" style="width:50%" alt="...">
+                            <p>This generated the plots below.</p>
+                            <img src="assets/lab2_img/roll_fft.png" style="width:50%" alt="...">
+                            <img src="assets/lab2_img/pitch_fft.png" style="width:50%" alt="...">
+                            <p>I then gathered new data while gently hitting the table to generate vibrational noise and repeated the above to generate the following plots.</p>
+                            <img src="assets/lab2_img/roll_time_vib.png" style="width:50%" alt="...">
+                            <img src="assets/lab2_img/pitch_time_vib.png" style="width:50%" alt="...">
+                            <img src="assets/lab2_img/roll_fft_vib.png" style="width:50%" alt="...">
+                            <img src="assets/lab2_img/pitch_fft_vib.png" style="width:50%" alt="...">
+                            <p>Even in these cases, the amplitude drops significantly above 0Hz and stays relatively consistant after. Based on the plots, I'll estimate the cutoff frequency to be about 1Hz.</p>
+                            <div class="subheading mb-3">Low-pass Filter</div>
+                            <p>Using this cutoff frequency, I then implemented a simple low-pass filter to reduce the noise level of data sent to Jupyter.</p>
+                            <img src="assets/lab2_img/lpf_code.png" style="width:50%" alt="...">
+                            <p>Replotting this data for both of the above cases, I obtained the following plots.</p>
+                            <div class="subheading mb-3">Still IMU</div>
+                            <img src="assets/lab2_img/roll_time_still_lpf.png" style="width:50%" alt="...">
+                            <img src="assets/lab2_img/pitch_time_still_lpf.png" style="width:50%" alt="...">
+                            <img src="assets/lab2_img/roll_fft_still_lpf.png" style="width:50%" alt="...">
+                            <img src="assets/lab2_img/pitch_fft_still_lpf.png" style="width:50%" alt="...">
+                            <div class="subheading mb-3">IMU with vibrational noise</div>
+                            <img src="assets/lab2_img/roll_time_vib_lpf.png" style="width:50%" alt="...">
+                            <img src="assets/lab2_img/pitch_time_vib_lpf.png" style="width:50%" alt="...">
+                            <img src="assets/lab2_img/roll_fft_vib_lpf.png" style="width:50%" alt="...">
+                            <img src="assets/lab2_img/pitch_fft_vib_lpf.png" style="width:50%" alt="...">
+                            <p>We can see from the plots that the low-pass filter is quite effective. It can be made more effective by lowering the cutoff frequency. This would more aggressively filter out high frequencies (noise), but at the risk of filtering out data that should be kept.</p>
                         </div>
-                        <div class="flex-shrink-0"><span class="text-primary">August 2002 - May 2006</span></div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">RC Car Testing and Stunt</h3>
+                            <p>To finish this lab, I mounted the battery on the RC car as it comes in the box and tried it out to get a feel for how it should move. I used the remote controller to drive the car around the hallway in the video below. It's worth noting that, at the speed the RC car moves, the tires have very poor traction on the hallway floor, making it easy to turn in place, but difficult to steer while moving. This is in large part because, when controlling it with the RC controller, the motors are either fully on or fully off, making it difficult to slow down to turn without drifting.</p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/SVCiqVjLAdA?si=CyO7wj-YDqAH0v12"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <p>To improve traction, I moved to a carpeted room and tried driving the car there. The traction was significantly improved, allowing the car to be controlled--in particular steered--much more easily. It also makes it much easier to flip the car without requiring as much speed, but this also means the car is more prone to flipping unintentionally. In this higher-traction environment, I played around with the car and attempted some stunts. My favorite--shown in the video below--was what happens when I flip the car and continue driving the motors at full speed. The car continues flipping without really moving anywhere. If I steer at the same time, the car looks like it's breakdancing!</p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/fxsiPi9F294?si=fhPz6aAQH96HPmiZ"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
-            <hr class="m-0" /> -->
+            <hr class="m-0" />
             <!-- Lab 3 -->
             <!-- <section class="resume-section" id="lab3">
                 <div class="resume-section-content">
