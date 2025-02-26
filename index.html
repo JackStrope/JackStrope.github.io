@@ -265,46 +265,38 @@
             </section>
             <hr class="m-0" />
             <!-- Lab 3 -->
-            <!-- <section class="resume-section" id="lab3">
+            <section class="resume-section" id="lab3">
                 <div class="resume-section-content">
                     <h2 class="mb-5">Lab 3</h2>
-                    <div class="subheading mb-3">Programming Languages & Tools</div>
-                    <ul class="list-inline dev-icons">
-                        <li class="list-inline-item"><i class="fab fa-html5"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-css3-alt"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-js-square"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-angular"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-react"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-node-js"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-sass"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-less"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-wordpress"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-gulp"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-grunt"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-npm"></i></li>
-                    </ul>
-                    <div class="subheading mb-3">Workflow</div>
-                    <ul class="fa-ul mb-0">
-                        <li>
-                            <span class="fa-li"><i class="fas fa-check"></i></span>
-                            Mobile-First, Responsive Design
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-check"></i></span>
-                            Cross Browser Testing & Debugging
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-check"></i></span>
-                            Cross Functional Teams
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-check"></i></span>
-                            Agile Development & Scrum
-                        </li>
-                    </ul>
-                </div>
-            </section>
-            <hr class="m-0" /> -->
+                    <p>In this lab, I connected and tested two Time-of-Flight (ToF) sensors, and tested how well both ToF sensors and the IMU can collect data at the same time. The ToF sensors detect objects and how far away they are, making them critical for the robot to move autonomously, avoid obstacles, and map out its environment.</p>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Prelab</h3>
+                            <p>Before the lab, I considered some future decisions to make. Both ToF sensors have the same I2C address (0x52), so to use them at the same time, I decided to change the address of one sensor as part of the setup function. To do this, one sensor needs to be powered down via its shutdown pin before changing the address, so that the two sensors have distinct addresses.</p>
+                            <p>Another decision to make is where to place the ToF sensors on the robot. One should obviously go on the front, since the robot mostly moves forward. I considered placing the other on the back so that the robot could detect obstacles while moving in reverse, but decided it would make much more sense to place the second sensor on the side, so that the robot can map out its environment to navigate through a maze, for example. Thus, the robot will be able to detect obstacles in front of it and to one side, but not behind it or to the other side. For the sake of obstacle avoidance, the only real case in which I'll need to be careful is when the robot moves in reverse--the side sensor will be more for environment mapping than for obstacle detection.</p>
+                            <p>As for wiring for this lab, the lab kit includes four QWIIC connector cables--two short and two long. One will be used to connect the Artemis to the breakout board, and three will be used to connect the breakout board to the IMU and the two ToF sensors. Since the positions of the ToF sensors are quite important, and the IMU should be close to the center of the robot along with the Artemis board and the breakout board anyway, I decided to use the long wires for the ToF sensors.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Lab Tasks</h3>
+                            <div class="subheading mb-3">Battery Power</div>
+                            <p>First, I powered the Artemis board with one of the 650mAh batteries. To do so, I first had to change the connector on the battery to a JST connector. I cut the wires (one at a time!) near the old connector, soldered them to the JST connector wires, and applied heat shrink to insulate the soldered portion of wire. I then plugged the Artemis board in to the battery to power it on and sent it commands via BLE to ensure it was properly running the uploaded BLE script.</p>
+                            <div class="subheading mb-3">First ToF Sensor</div>
+                            <p>Next, I connected the QWIIC breakout board to the Artemis and the first ToF sensor to the breakout board. To connect the ToF sensor, I cut the four wires on one of the long QWIIC cables and soldered them to the appropriat pins on the sensor (red -> VIN, black -> GND, blue -> SDA, and yellow -> SCL). Since the shutdown pin (XSHUT) needs to be connected on one of the sensors, I also soldered a wire to this pin and soldered the other end to pin 2 on the Artemis board. The setup is shown in the picture below.</p>
+                            <img src="assets/lab3_img/one-tof.jpg" style="width:50%" alt="...">
+                            <p>Next, I ran the Example1_wire_I2C script to make sure the I2C address of the sensor is being accurately detected. This results in the following output to the Serial Monitor.</p>
+                            <img src="assets/lab3_img/one-tof-address.png" style="width:40%" alt="...">
+                            <p>Though the datasheet lists the address as 0x52, the script detects 0x29--this is 0x52 right-shifted by one. This is because the least-significant bit of the address is used to identify whether the device is reading or writing, rather than identifying the device. Thus, the detected address only considers the upper seven bits.</p>
+                            <p>Finally, I tested the sensor by measuring several distances from the wall at set positions along a ruler. Of the sensor's three distance modes (short, medium, long), I decided to use the short mode for now, since this provides the greatest accuracy, which will be useful for accurately mapping the robots environment in future labs. When the sensors are mounted on the robot, I may switch the front sensor to long-distance mode so it can detect obstacles faster, if it's not detecting obstacles fast enough. My setup for measuring data is shown below.</p>
+                            <img src="assets/lab3_img/dist-measure.jpg" style="width:50%" alt="...">
+                            <p>I measured 10 distances along the ruler and plotted them below. The measurements are accurate for the most part for all measured distances, though accuracy decreases slightly at farther distances.</p>
+                            <img src="assets/lab3_img/ruler-vs-tof.png" style="width:50%" alt="...">
+                            <div class="subheading mb-3">Two ToF Sensors</div>
+                            <p>Next, I hooked up both ToF sensors simultaneously. I repeated the wiring as with the first ToF, though I did not connect the shutdown pin since this is only needed for one sensor.</p>
+                        </div>
+                    </div>
+            <!-- <hr class="m-0" /> -->
             <!-- Lab 4 -->
             <!-- <section class="resume-section" id="lab4">
                 <div class="resume-section-content">
