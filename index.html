@@ -30,7 +30,7 @@
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab2">Lab 2</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab3">Lab 3</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab4">Lab 4</a></li>
-                    <!-- <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab5">Lab 5</a></li> -->
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab5">Lab 5</a></li>
                 </ul>
             </div>
         </nav>
@@ -46,25 +46,34 @@
                     <div class="subheading mb-5">
                         <a href="mailto:jrs632@cornell.edu">jrs632@cornell.edu</a>
                     </div>
-                    <p class="lead mb-5">Hi! My name is Jack Strope. I'm currently pursuing my MEng in Electrical and Computer Engineering at Cornell. I'm most interested in embedded systems, robotics, and integrated circuit design. This website documents my projects in ECE 5160: Fast Robots.</p>
+                    <p class="lead mb-5">Hi! My name is Jack Strope. I'm currently pursuing my MEng
+                        in Electrical and Computer Engineering at Cornell. I'm most interested in
+                        embedded systems, robotics, and integrated circuit design. This website
+                        documents my projects in ECE 5160: Fast Robots.</p>
                     <div class="social-icons">
                         <a class="social-icon" href="https://www.linkedin.com/in/jack-strope/"><i class="fab fa-linkedin-in"></i></a>
                         <a class="social-icon" href="https://github.com/JackStrope"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
             </section>
-            <hr class="m-0" />
+
             <!-- Lab 1 -->
+            <hr class="m-0" />
             <section class="resume-section" id="lab1">
                 <div class="resume-section-content">
                     <h2 class="mb-5">Lab 1</h2>
-                    <p>This lab focused on becoming acquainted with the Artemis board, including programming the board with the Arduino IDE (Lab 1A) and bluetooth communication (Lab 1B).</p>
+                    <p>This lab focused on becoming acquainted with the Artemis board, including
+                        programming the board with the Arduino IDE (Lab 1A) and bluetooth
+                        communication (Lab 1B).</p>
                     <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
                             <h3 class="mb-0">Lab 1A</h3>
-                            <p>In this part of the lab, I hooked up the Artemis board to my laptop and uploaded several example programs to test the hardware.</p>
+                            <p>In this part of the lab, I hooked up the Artemis board to my laptop and
+                                uploaded several example programs to test the hardware.</p>
                             <div class="subheading mb-3">Blink</div>
-                            <p>After connecting the board to my computer and selecting the board in the Arduino IDE, I ran Blink, an example sketch built in to the Arduino IDE. The program simply swithces the onboard LED on and off every second.</p>
+                            <p>After connecting the board to my computer and selecting the board in the
+                                Arduino IDE, I ran Blink, an example sketch built in to the Arduino IDE. The
+                                program simply swithces the onboard LED on and off every second.</p>
                             <p align="center">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/0uykq8tEe2I?si=udffNvAfnh5zDZfs"
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -72,7 +81,9 @@
                                 </iframe>
                             </p>
                             <div class="subheading mb-3">Serial</div>
-                            <p>The next example script run on the board was Serial, which allows the user to type characters into the Serial Monitor in the Arduino IDE and echoes them back.</p>
+                            <p>The next example script run on the board was Serial, which allows the user to
+                                type characters into the Serial Monitor in the Arduino IDE and echoes them
+                                back.</p>
                             <p align="center">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/S-UKg5_U6-M?si=PeaNl0l8xNDBQ4Rp"
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -80,7 +91,10 @@
                                 </iframe>
                             </p>
                             <div class="subheading mb-3">Temperature Sensor</div>
-                            <p>The next example script run was AnalogRead, modified to continuously print the temperature sensor's reading in Fahrenheit. Notice in the video below, the temperature starts around 85&deg;F, but after blowing on it for a couple seconds, it lowers to around 82&deg;F.</p>
+                            <p>The next example script run was AnalogRead, modified to continuously print
+                                the temperature sensor's reading in Fahrenheit. Notice in the video below,
+                                the temperature starts around 85&deg;F, but after blowing on it for a couple
+                                seconds, it lowers to around 82&deg;F.</p>
                             <p align="center">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/wAE6XcBU8TY?si=5ozjm3ATQ2xYbMK-"
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -88,7 +102,8 @@
                                 </iframe>
                             </p>
                             <div class="subheading mb-3">Microphone</div>
-                            <p>The last example script run is MicrophoneOutput, which displays the loudest frequency detected by the microphone.</p>
+                            <p>The last example script run is MicrophoneOutput, which displays the loudest
+                                frequency detected by the microphone.</p>
                             <p align="center">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/xSPRAWHourM?si=k4HLLJKTcufKPk_4"
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -96,7 +111,12 @@
                                 </iframe>
                             </p>
                             <div class="subheading mb-3">Middle C Detector</div>
-                            <p>Since I'm enrolled in the 5000-level version of the class, I did the additional task of making my own script to blink the LED when a "C" note (~261Hz) is the loudest frequency. To do so, I simply modified the MicrophoneOutput script, adding a simple conditional that writes HIGH to the LED if the loudest frequency is between 258Hz and 264Hz (to account for noise/interference that affect the reading) and LOW otherwise.</p>
+                            <p>Since I'm enrolled in the 5000-level version of the class, I did the
+                                additional task of making my own script to blink the LED when a "C" note
+                                (~261Hz) is the loudest frequency. To do so, I simply modified the
+                                MicrophoneOutput script, adding a simple conditional that writes HIGH to the
+                                LED if the loudest frequency is between 258Hz and 264Hz (to account for
+                                noise/interference that affect the reading) and LOW otherwise.</p>
                             <p align="center">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/mUHA8onSOqU?si=kfrdvS7dUO1k9WyG"
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -108,12 +128,24 @@
                     <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
                             <h3 class="mb-0">Lab 1B</h3>
-                            <p>In this part of the lab, I established Bluetooth communication between the Artemis board and my laptop via Bluetooth Low Energy (BLE).</p>
+                            <p>In this part of the lab, I established Bluetooth communication between the
+                                Artemis board and my laptop via Bluetooth Low Energy (BLE).</p>
                             <div class="subheading mb-3">Prelab</div>
-                            <p>After ensuring the latest version of Python was installed on my computer, I set up a virtual environment, installed the necessary Python libraries, and installed the codebase provided in the lab handout. I then activated the virtual environment and launched JupyterLab.</p>
-                            <p>The next step was to establish a connection between JupyterLab on my computer and the Artemis board via BLE. To do so, I first ran the ble_arduino.ino script from the codebase on the board to print its MAC address. I copied this into the file connections.yaml in the Python virtual environment. I then generated a UUID using the uuid library in JupyterLab and copied it to both connections.yaml and ble_arduino.ino. I then verified that the connection between the board and computer was successful with some test commands provided in a demo Jupyter notebook.</p>
+                            <p>After ensuring the latest version of Python was installed on my computer, I
+                                set up a virtual environment, installed the necessary Python libraries, and
+                                installed the codebase provided in the lab handout. I then activated the
+                                virtual environment and launched JupyterLab.</p>
+                            <p>The next step was to establish a connection between JupyterLab on my computer
+                                and the Artemis board via BLE. To do so, I first ran the ble_arduino.ino
+                                script from the codebase on the board to print its MAC address. I copied
+                                this into the file connections.yaml in the Python virtual environment. I
+                                then generated a UUID using the uuid library in JupyterLab and copied it to
+                                both connections.yaml and ble_arduino.ino. I then verified that the
+                                connection between the board and computer was successful with some test
+                                commands provided in a demo Jupyter notebook.</p>
                             <div class="subheading mb-3">Task 1</div>
-                            <p>First, I implemented the ECHO command, which simply sends the input string back with an added prefix and postfix. The implementation is shown below.</p>
+                            <p>First, I implemented the ECHO command, which simply sends the input string
+                                back with an added prefix and postfix. The implementation is shown below.</p>
                             <img src="assets/lab1_img/echo_code.png" width="620" height="410" alt="...">
                             <p align="center">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/2C2rG41n7QY?si=oXK7ZcenfWlVdzP1"
@@ -122,7 +154,9 @@
                                 </iframe>
                             </p>
                             <div class="subheading mb-3">Task 2</div>
-                            <p>The next task was to use the SEND_THREE_FLOATS command, which extracts the three floats from the message sent from JupyterLab to the board and prints them to the serial monitor. The implementation is shown below.</p>
+                            <p>The next task was to use the SEND_THREE_FLOATS command, which extracts the
+                                three floats from the message sent from JupyterLab to the board and prints
+                                them to the serial monitor. The implementation is shown below.</p>
                             <img src="assets/lab1_img/send_three_floats_code.png" width="542" height="320" alt="...">
                             <p align="center">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/17dOKtxjBw8?si=d5fgCuDH3ci9hsQU"
@@ -131,7 +165,8 @@
                                 </iframe>
                             </p>
                             <div class="subheading mb-3">Task 3</div>
-                            <p>Next, I added a new command GET_TIME_MILLIS which makes the Artemis board respond with the current time in milliseconds.</p>
+                            <p>Next, I added a new command GET_TIME_MILLIS which makes the Artemis board
+                                respond with the current time in milliseconds.</p>
                             <img src="assets/lab1_img/get_time_millis_code.png" width="502" height="306" alt="...">
                             <p align="center">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/28pNqyaM_9s?si=3Zkf5FUB63ApMia-"
@@ -140,7 +175,10 @@
                                 </iframe>
                             </p>
                             <div class="subheading mb-3">Task 4</div>
-                            <p>Next, I defined a notification handler in the Jupyter notebook to extract the time from the response string sent by the GET_TIME_MILLIS command. The following code snippets show the handler and then the commands used to receive the time using the handler.</p>
+                            <p>Next, I defined a notification handler in the Jupyter notebook to extract the
+                                time from the response string sent by the GET_TIME_MILLIS command. The
+                                following code snippets show the handler and then the commands used to
+                                receive the time using the handler.</p>
                             <img src="assets/lab1_img/handler.png" width="574" height="274" alt="...">
                             <p align="center">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/NymV2kfQgXY?si=JbmA-qSp7hPYb-aj"
@@ -149,31 +187,66 @@
                                 </iframe>
                             </p>
                             <div class="subheading mb-3">Task 5</div>
-                            <p>In this task, I determined how fast messages can be sent by making a new command that repeatedly sends the current time in milliseconds to Jupyter for 100 iterations.</p>
+                            <p>In this task, I determined how fast messages can be sent by making a new
+                                command that repeatedly sends the current time in milliseconds to Jupyter
+                                for 100 iterations.</p>
                             <img src="assets/lab1_img/task5.png" width="518" height="378" alt="...">
-                            <p>The code used to receive the messages in Jupyter accepts messages for 10 seconds to ensure all 100 go through. This code and the first several received timestamps are shown below.</p>
+                            <p>The code used to receive the messages in Jupyter accepts messages for 10
+                                seconds to ensure all 100 go through. This code and the first several
+                                received timestamps are shown below.</p>
                             <img src="assets/lab1_img/task5_output.png" width="587" height="348" alt="...">
-                            <p>By subtracting the last timestamp from the first and dividing by the number of messages, we calculate the effective data transfer rate to be 100 messages / (26.165s - 23.596s) = 38.926 messages per second.</p>
+                            <p>By subtracting the last timestamp from the first and dividing by the number
+                                of messages, we calculate the effective data transfer rate to be 100
+                                messages / (26.165s - 23.596s) = 38.926 messages per second.</p>
                         </div>
                     </div>
                     <div class="d-flex flex-column flex-md-row justify-content-between mb-5"></div>
                         <div class="flex-grow-1">
                             <h3 class="mb-0">Discussion</h3>
-                            <p>In this lab, I learned how to connect and program the Artemis board using the Arduino IDE, and how to connect to it from my computer via Bluetooth. The ability to connect to the board this way will be extremely useful when the board is on the robot--it won't be plugged into my computer then, so a method of wireless communication with the robot will be necessary. Evaluating how fast data can be sent with different methods will also prove useful in deciding what methods to use for communication with the robot in future labs.</p>
+                            <p>In this lab, I learned how to connect and program the Artemis board using the
+                                Arduino IDE, and how to connect to it from my computer via Bluetooth. The
+                                ability to connect to the board this way will be extremely useful when the
+                                board is on the robot&mdash;it won't be plugged into my computer then, so a
+                                method of wireless communication with the robot will be necessary.
+                                Evaluating how fast data can be sent with different methods will also prove
+                                useful in deciding what methods to use for communication with the robot in
+                                future labs.</p>
                 </div>
             </section>
-            <hr class="m-0" />
+
             <!-- Lab 2 -->
+            <hr class="m-0" />
             <section class="resume-section" id="lab2">
                 <div class="resume-section-content">
                     <h2 class="mb-5">Lab 2</h2>
-                    <p>In this lab, I tested the IMU by gathering accelerometer and gyroscope data. This data will allow the robot to keep track of its orientation and acceleration. At the end of the lab, I also tried controlling the RC car as it comes in the box with the controller to get a feel for how it can move, and recorded a couple of stunts.</p>
+                    <p>In this lab, I tested the IMU by gathering accelerometer and gyroscope data.
+                        This data will allow the robot to keep track of its orientation and
+                        acceleration. At the end of the lab, I also tried controlling the RC car as
+                        it comes in the box with the controller to get a feel for how it can move,
+                        and recorded a couple of stunts.</p>
                     <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
                             <h3 class="mb-0">Setup</h3>
-                            <p>Setting up the IMU with the Artemis board was fairly straightforward. After installing the necessary library in the Arduino IDE, I connected the IMU to the board using a QWIIC connector. I then ran the library's example script, which collects and prints the sensor's acceleration, gyroscope, magnetometer, and temperature data. The data is sent to the MCU via I2C, so to identify which device to receive data from, the script defines a macro AD0_VAL, the last bit of the I2C address. For the IMU, this value is 1 by default. Additionally, I added the following code to the setup() function in this script and the BLE script to serve as an indication of when the board starts running.</p>
+                            <p>Setting up the IMU with the Artemis board was fairly straightforward. After
+                                installing the necessary library in the Arduino IDE, I connected the IMU to
+                                the board using a QWIIC connector. I then ran the library's example script,
+                                which collects and prints the sensor's acceleration, gyroscope,
+                                magnetometer, and temperature data. The data is sent to the MCU via I2C, so
+                                to identify which device to receive data from, the script defines a macro
+                                AD0_VAL, the last bit of the I2C address. For the IMU, this value is 1 by
+                                default. Additionally, I added the following code to the setup() function in
+                                this script and the BLE script to serve as an indication of when the board
+                                starts running.</p>
                             <img src="assets/lab2_img/blink_on_startup.png" width="463" height="193" alt="...">
-                            <p>To more easily monitor the x, y, and z acceleration data, I opened the Serial Plotter, which plots the data in real time. This is shown in the video below. When the IMU sits flat on a surface, the x and y acceleration curves stay steady around 0, while the z curve stays steady around 1000 milli-g, or 1g of acceleration. This is due to gravity accelerating the board downward at 1g at all times. If I accelerate the board in any direction, the curve cooresponding to that direction responds accordingly. If I rotate the board, the acceleration due to gravity shifts from the z-direction to the x/y directions.</p>
+                            <p>To more easily monitor the x, y, and z acceleration data, I opened the Serial
+                                Plotter, which plots the data in real time. This is shown in the video
+                                below. When the IMU sits flat on a surface, the x and y acceleration curves
+                                stay steady around 0, while the z curve stays steady around 1000 milli-g, or
+                                1g of acceleration. This is due to gravity accelerating the board downward
+                                at 1g at all times. If I accelerate the board in any direction, the curve
+                                cooresponding to that direction responds accordingly. If I rotate the board,
+                                the acceleration due to gravity shifts from the z-direction to the x/y
+                                directions.</p>
                             <p align="center">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/VDpDZS0kkV4?si=A5ejh0NfnHHD8oSl"
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -185,9 +258,15 @@
                     <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
                             <h3 class="mb-0">Accelerometer</h3>
-                            <p>Next, I modified the example script to calculate the roll and pitch of the IMU using the following equations.</p>
+                            <p>Next, I modified the example script to calculate the roll and pitch of the
+                                IMU using the following equations.</p>
                             <img src="assets/lab2_img/roll_pitch_equations.png" width="555" height="53" alt="...">
-                            <p>To check the accuracy, I recorded the measured roll and pitch for -90&deg;, 0&deg;, and 90&deg;. For 0&deg; for both roll and pitch, I held the IMU down on a flat surface. I measured -90&deg; and 90&deg; for roll and pitch separately, placing the IMU at 90&deg; relative to the horizontal by holding it against the side of a box on the desk. The results are shown in the images below.</p>
+                            <p>To check the accuracy, I recorded the measured roll and pitch for -90&deg;,
+                                0&deg;, and 90&deg;. For 0&deg; for both roll and pitch, I held the IMU down
+                                on a flat surface. I measured -90&deg; and 90&deg; for roll and pitch
+                                separately, placing the IMU at 90&deg; relative to the horizontal by holding
+                                it against the side of a box on the desk. The results are shown in the
+                                images below.</p>
                             <figure>
                                 <img src="assets/lab2_img/pitch_roll_0.jpg" style="width:50%" alt="...">
                                 <figcaption>0&deg; roll and pitch</figcaption>
@@ -208,27 +287,39 @@
                                 <img src="assets/lab2_img/pitch_90.jpg" style="width:50%" alt="...">
                                 <figcaption>90&deg; pitch</figcaption>
                             </figure>
-                            <p>Though noisy, the data appears very accurate, to within a degree or two in each of the above measurements.</p>
+                            <p>Though noisy, the data appears very accurate, to within a degree or two in
+                                each of the above measurements.</p>
                             <div class="subheading mb-3">Time-domain Plots</div>
-                            <p>To analyze the data in Python, I added a new command to the BLE script to continuously calculate the roll and pitch in a loop and send the data (with timestamps) to Jupyter. With the data in Jupyter, I then plotted roll and pitch vs time. The results are in the plots below.</p>
+                            <p>To analyze the data in Python, I added a new command to the BLE script to
+                                continuously calculate the roll and pitch in a loop and send the data (with
+                                timestamps) to Jupyter. With the data in Jupyter, I then plotted roll and
+                                pitch vs time. The results are in the plots below.</p>
                             <img src="assets/lab2_img/roll_time.png" style="width:50%" alt="...">
                             <img src="assets/lab2_img/pitch_time.png" style="width:50%" alt="...">
                             <div class="subheading mb-3">Noise Frequency Analysis</div>
-                            <p>We can analyze the frequency of the noise by plotting the Fourier Transform of the data. To do so, I used the following Python code to compute and plot the FFT of the roll and pitch data.</p>
+                            <p>We can analyze the frequency of the noise by plotting the Fourier Transform
+                                of the data. To do so, I used the following Python code to compute and plot
+                                the FFT of the roll and pitch data.</p>
                             <img src="assets/lab2_img/fft_code.png" style="width:50%" alt="...">
                             <p>This generated the plots below.</p>
                             <img src="assets/lab2_img/roll_fft.png" style="width:50%" alt="...">
                             <img src="assets/lab2_img/pitch_fft.png" style="width:50%" alt="...">
-                            <p>I then gathered new data while gently hitting the table to generate vibrational noise and repeated the above to generate the following plots.</p>
+                            <p>I then gathered new data while gently hitting the table to generate
+                                vibrational noise and repeated the above to generate the following 
+                                plots.</p>
                             <img src="assets/lab2_img/roll_time_vib.png" style="width:50%" alt="...">
                             <img src="assets/lab2_img/pitch_time_vib.png" style="width:50%" alt="...">
                             <img src="assets/lab2_img/roll_fft_vib.png" style="width:50%" alt="...">
                             <img src="assets/lab2_img/pitch_fft_vib.png" style="width:50%" alt="...">
-                            <p>Even in these cases, the amplitude drops significantly above 0Hz and stays relatively consistant after. Based on the plots, I'll estimate the cutoff frequency to be about 1Hz.</p>
+                            <p>Even in these cases, the amplitude drops significantly above 0Hz and stays
+                                relatively consistant after. Based on the plots, I'll estimate the cutoff
+                                frequency to be about 1Hz.</p>
                             <div class="subheading mb-3">Low-pass Filter</div>
-                            <p>Using this cutoff frequency, I then implemented a simple low-pass filter to reduce the noise level of data sent to Jupyter.</p>
+                            <p>Using this cutoff frequency, I then implemented a simple low-pass filter to
+                                reduce the noise level of data sent to Jupyter.</p>
                             <img src="assets/lab2_img/lpf_code.png" style="width:50%" alt="...">
-                            <p>Replotting this data for both of the above cases, I obtained the following plots.</p>
+                            <p>Replotting this data for both of the above cases, I obtained the following
+                                plots.</p>
                             <div class="subheading mb-3">Still IMU</div>
                             <img src="assets/lab2_img/roll_time_still_lpf.png" style="width:50%" alt="...">
                             <img src="assets/lab2_img/pitch_time_still_lpf.png" style="width:50%" alt="...">
@@ -239,20 +330,39 @@
                             <img src="assets/lab2_img/pitch_time_vib_lpf.png" style="width:50%" alt="...">
                             <img src="assets/lab2_img/roll_fft_vib_lpf.png" style="width:50%" alt="...">
                             <img src="assets/lab2_img/pitch_fft_vib_lpf.png" style="width:50%" alt="...">
-                            <p>We can see from the plots that the low-pass filter is quite effective. It can be made more effective by lowering the cutoff frequency. This would more aggressively filter out high frequencies (noise), but at the risk of filtering out data that should be kept.</p>
+                            <p>We can see from the plots that the low-pass filter is quite effective. It can
+                                be made more effective by lowering the cutoff frequency. This would more
+                                aggressively filter out high frequencies (noise), but at the risk of
+                                filtering out data that should be kept.</p>
                         </div>
                     </div>
                     <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
                             <h3 class="mb-0">RC Car Testing and Stunt</h3>
-                            <p>To finish this lab, I mounted the battery on the RC car as it comes in the box and tried it out to get a feel for how it should move. I used the remote controller to drive the car around the hallway in the video below. It's worth noting that, at the speed the RC car moves, the tires have very poor traction on the hallway floor, making it easy to turn in place, but difficult to steer while moving. This is in large part because, when controlling it with the RC controller, the motors are either fully on or fully off, making it difficult to slow down to turn without drifting.</p>
+                            <p>To finish this lab, I mounted the battery on the RC car as it comes in the
+                                box and tried it out to get a feel for how it should move. I used the remote
+                                controller to drive the car around the hallway in the video below. It's
+                                worth noting that, at the speed the RC car moves, the tires have very poor
+                                traction on the hallway floor, making it easy to turn in place, but
+                                difficult to steer while moving. This is in large part because, when
+                                controlling it with the RC controller, the motors are either fully on or
+                                fully off, making it difficult to slow down to turn without drifting.</p>
                             <p align="center">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/SVCiqVjLAdA?si=CyO7wj-YDqAH0v12"
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
                                 </iframe>
                             </p>
-                            <p>To improve traction, I moved to a carpeted room and tried driving the car there. The traction was significantly improved, allowing the car to be controlled--in particular steered--much more easily. It also makes it much easier to flip the car without requiring as much speed, but this also means the car is more prone to flipping unintentionally. In this higher-traction environment, I played around with the car and attempted some stunts. My favorite--shown in the video below--was what happens when I flip the car and continue driving the motors at full speed. The car continues flipping without really moving anywhere. If I steer at the same time, the car looks like it's breakdancing!</p>
+                            <p>To improve traction, I moved to a carpeted room and tried driving the car
+                                there. The traction was significantly improved, allowing the car to be
+                                controlled&mdash;in particular steered&mdash;much more easily. It also makes it much
+                                easier to flip the car without requiring as much speed, but this also means
+                                the car is more prone to flipping unintentionally. In this higher-traction
+                                environment, I played around with the car and attempted some stunts. My
+                                favorite&mdash;shown in the video below&mdash;was what happens when I flip the car
+                                and continue driving the motors at full speed. The car continues flipping
+                                without really moving anywhere. If I steer at the same time, the car looks
+                                like it's breakdancing!</p>
                             <p align="center">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/fxsiPi9F294?si=fhPz6aAQH96HPmiZ"
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -263,98 +373,256 @@
                     </div>
                 </div>
             </section>
-            <hr class="m-0" />
+
             <!-- Lab 3 -->
+            <hr class="m-0" />
             <section class="resume-section" id="lab3">
                 <div class="resume-section-content">
                     <h2 class="mb-5">Lab 3</h2>
-                    <p>In this lab, I connected and tested two Time-of-Flight (ToF) sensors, and tested how well both ToF sensors and the IMU can collect data at the same time. The ToF sensors detect objects and how far away they are, making them critical for the robot to move autonomously, avoid obstacles, and map out its environment.</p>
+                    <p>In this lab, I connected and tested two Time-of-Flight (ToF) sensors, and
+                        tested how well both ToF sensors and the IMU can collect data at the same
+                        time. The ToF sensors detect objects and how far away they are, making them
+                        critical for the robot to move autonomously, avoid obstacles, and map out
+                        its environment.</p>
                     <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
                             <h3 class="mb-0">Prelab</h3>
-                            <p>Before the lab, I considered some future decisions to make. Both ToF sensors have the same I2C address (0x52), so to use them at the same time, I decided to change the address of one sensor as part of the setup function. To do this, one sensor needs to be powered down via its shutdown pin before changing the address, so that the two sensors have distinct addresses.</p>
-                            <p>Another decision to make is where to place the ToF sensors on the robot. One should obviously go on the front, since the robot mostly moves forward. I considered placing the other on the back so that the robot could detect obstacles while moving in reverse, but decided it would make much more sense to place the second sensor on the side, so that the robot can map out its environment to navigate through a maze, for example. Thus, the robot will be able to detect obstacles in front of it and to one side, but not behind it or to the other side. For the sake of obstacle avoidance, the only real case in which I'll need to be careful is when the robot moves in reverse--the side sensor will be more for environment mapping than for obstacle detection.</p>
-                            <p>As for wiring for this lab, the lab kit includes four QWIIC connector cables--two short and two long. One will be used to connect the Artemis to the breakout board, and three will be used to connect the breakout board to the IMU and the two ToF sensors. Since the positions of the ToF sensors are quite important, and the IMU should be close to the center of the robot along with the Artemis board and the breakout board anyway, I decided to use the long wires for the ToF sensors.</p>
+                            <p>Before the lab, I considered some future decisions to make. Both ToF sensors
+                                have the same I2C address (0x52), so to use them at the same time, I decided
+                                to change the address of one sensor as part of the setup function. To do
+                                this, one sensor needs to be powered down via its shutdown pin before
+                                changing the address, so that the two sensors have distinct addresses.</p>
+                            <p>Another decision to make is where to place the ToF sensors on the robot. One
+                                should obviously go on the front, since the robot mostly moves forward. I
+                                considered placing the other on the back so that the robot could detect
+                                obstacles while moving in reverse, but decided it would make much more sense
+                                to place the second sensor on the side, so that the robot can map out its
+                                environment to navigate through a maze, for example. Thus, the robot will be
+                                able to detect obstacles in front of it and to one side, but not behind it
+                                or to the other side. For the sake of obstacle avoidance, the only real case
+                                in which I'll need to be careful is when the robot moves in reverse&mdash;the
+                                side sensor will be more for environment mapping than for obstacle
+                                detection.</p>
+                            <p>As for wiring for this lab, the lab kit includes four QWIIC connector
+                                cables&mdash;two short and two long. One will be used to connect the Artemis to
+                                the breakout board, and three will be used to connect the breakout board to
+                                the IMU and the two ToF sensors. Since the positions of the ToF sensors are
+                                quite important, and the IMU should be close to the center of the robot
+                                along with the Artemis board and the breakout board anyway, I decided to use
+                                the long wires for the ToF sensors.</p>
                         </div>
                     </div>
                     <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
                             <h3 class="mb-0">Lab Tasks</h3>
                             <div class="subheading mb-3">Battery Power</div>
-                            <p>First, I powered the Artemis board with one of the 650mAh batteries. To do so, I first had to change the connector on the battery to a JST connector. I cut the wires (one at a time!) near the old connector, soldered them to the JST connector wires, and applied heat shrink to insulate the soldered portion of wire. I then plugged the Artemis board in to the battery to power it on and sent it commands via BLE to ensure it was properly running the uploaded BLE script.</p>
+                            <p>First, I powered the Artemis board with one of the 650mAh batteries. To do
+                                so, I first had to change the connector on the battery to a JST connector.
+                                I cut the wires (one at a time!) near the old connector, soldered them to
+                                the JST connector wires, and applied heat shrink to insulate the soldered
+                                portion of wire. I then plugged the Artemis board in to the battery to
+                                power it on and sent it commands via BLE to ensure it was properly running
+                                the uploaded BLE script.</p>
                             <div class="subheading mb-3">First ToF Sensor</div>
-                            <p>Next, I connected the QWIIC breakout board to the Artemis and the first ToF sensor to the breakout board. To connect the ToF sensor, I cut the four wires on one of the long QWIIC cables and soldered them to the appropriat pins on the sensor (red -> VIN, black -> GND, blue -> SDA, and yellow -> SCL). Since the shutdown pin (XSHUT) needs to be connected on one of the sensors, I also soldered a wire to this pin and soldered the other end to pin 2 on the Artemis board. The setup is shown in the picture below.</p>
+                            <p>Next, I connected the QWIIC breakout board to the Artemis and the first ToF
+                                sensor to the breakout board. To connect the ToF sensor, I cut the four
+                                wires on one of the long QWIIC cables and soldered them to the appropriat
+                                pins on the sensor (red -> VIN, black -> GND, blue -> SDA, and yellow ->
+                                SCL). Since the shutdown pin (XSHUT) needs to be connected on one of the
+                                sensors, I also soldered a wire to this pin and soldered the other end to
+                                pin 2 on the Artemis board. The setup is shown in the picture below.</p>
                             <img src="assets/lab3_img/one-tof.jpg" style="width:50%" alt="...">
-                            <p>Next, I ran the Example1_wire_I2C script to make sure the I2C address of the sensor is being accurately detected. This results in the following output to the Serial Monitor.</p>
+                            <p>Next, I ran the Example1_wire_I2C script to make sure the I2C address of the
+                                sensor is being accurately detected. This results in the following output to
+                                the Serial Monitor.</p>
                             <img src="assets/lab3_img/one-tof-address.png" style="width:40%" alt="...">
-                            <p>Though the datasheet lists the address as 0x52, the script detects 0x29--this is 0x52 right-shifted by one. This is because the least-significant bit of the address is used to identify whether the device is reading or writing, rather than identifying the device. Thus, the detected address only considers the upper seven bits.</p>
-                            <p>Finally, I tested the sensor by measuring several distances from the wall at set positions along a ruler. Of the sensor's three distance modes (short, medium, long), I decided to use the short mode for now, since this provides the greatest accuracy, which will be useful for accurately mapping the robots environment in future labs. When the sensors are mounted on the robot, I may switch the front sensor to long-distance mode so it can detect obstacles faster, if it's not detecting obstacles fast enough. My setup for measuring data is shown below.</p>
+                            <p>Though the datasheet lists the address as 0x52, the script detects 0x29&mdash;this
+                                is 0x52 right-shifted by one. This is because the least-significant bit of
+                                the address is used to identify whether the device is reading or writing,
+                                rather than identifying the device. Thus, the detected address only
+                                considers the upper seven bits.</p>
+                            <p>Finally, I tested the sensor by measuring several distances from the wall at
+                                set positions along a ruler. Of the sensor's three distance modes (short,
+                                medium, long), I decided to use the short mode for now, since this provides
+                                the greatest accuracy, which will be useful for accurately mapping the
+                                robots environment in future labs. When the sensors are mounted on the
+                                robot, I may switch the front sensor to long-distance mode so it can detect
+                                obstacles faster, if it's not detecting obstacles fast enough. My setup for
+                                measuring data is shown below.</p>
                             <img src="assets/lab3_img/dist-measure.jpg" style="width:50%" alt="...">
-                            <p>I measured 10 distances along the ruler and plotted them below. The measurements are accurate for the most part for all measured distances, though accuracy decreases slightly at farther distances.</p>
+                            <p>I measured 10 distances along the ruler and plotted them below. The
+                                measurements are accurate for the most part for all measured distances,
+                                though accuracy decreases slightly at farther distances.</p>
                             <img src="assets/lab3_img/ruler-vs-tof.png" style="width:50%" alt="...">
                             <div class="subheading mb-3">Two ToF Sensors</div>
-                            <p>Next, I hooked up both ToF sensors simultaneously. I repeated the wiring as with the first ToF, though I did not connect the shutdown pin since this is only needed for one sensor.</p>
+                            <p>Next, I hooked up both ToF sensors simultaneously. I repeated the wiring as
+                                with the first ToF, though I did not connect the shutdown pin since this is
+                                only needed for one sensor.</p>
                         </div>
                     </div>
-            <hr class="m-0" />
+                </div>
+            </section>
+
             <!-- Lab 4 -->
+            <hr class="m-0" />
             <section class="resume-section" id="lab4">
                 <div class="resume-section-content">
                     <h2 class="mb-5">Lab 4</h2>
+                    <p>In this lab, I transitioned from controlling the car manually with the
+                        controller to open-loop control via Arduino code. To do so, I replaced the
+                        PCB inside the car with the Artemis board with two motor drivers, the IMU,
+                        and the two ToF sensors.</p>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Prelab</h3>
+                            <p>Since this lab involved many soldered connections to build the full circuit,
+                                it was important to plan out the connections before I started soldering
+                                everything. I decided to use pins
+                                7, 9, 11, and 12 on the Artemis to generate the PWM signals for the
+                                drivers&mdash;primarily due to their position at the end of the board making them
+                                optimal for my planned physical configuration. The connections between the
+                                motor drivers, Artemis, and batteries are shown in the diagram below.</p>
+                            <img src="assets/lab4_img/prelab-diagram.png" style="width:75%" alt="...">
+                            <p>Two separate batteries are used here&mdash;one powering the Artemis and the other
+                                powering the motor drivers&mdash;because the motors draw high current, are very
+                                noisy, and generate significant EMI as they rapidly switch polarity. This
+                                can create large voltage spikes that could interfere with or possibly damage
+                                sensitive electronics.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Lab Tasks</h3>
+                            <div class="subheading mb-3">Motor Driver PWM Test</div>
+                            <p>First, I connected one motor driver to the Artemis and to a power supply.
+                                I connected the driver to a DC power bench
+                                set to 3.7V (the battery's voltage) for this part, since the battery doesn't
+                                typically last long. To test that PWM signals can be properly generated and
+                                output to the motors, I used the analogWrite() function to generate PWM signals
+                                on the Artemis and connected an oscilloscope to the cooresponding output of the driver. The
+                                images below show the setup and oscilloscope measurement with one channel
+                                connected to OUT1 and the other to OUT2. Here, OUT1 has a duty cycle of 0 and
+                                OUT2 has a duty cycle of 25% (63 out of 255 max). This corresponds to the
+                                motor spinning in reverse.</p>
+                            <img src="assets/lab4_img/pwm-code.png" style="width:40%" alt="...">
+                            <p>Simple code for generating PWM signal cooresponding to the motor spinning in reverse</p>
+                            <img src="assets/lab4_img/oscope-setup.jpg" style="width:50%" alt="...">
+                            <p>Setup&mdash;the power supply is off to the left side, connected to the red and
+                                black wires on the driver.</p>
+                            <img src="assets/lab4_img/oscope-output.jpg" style="width:50%" alt="...">
+                            <p>Output with 25% duty cycle on channel 1 and 0 on channel 2</p>
+
+                            <div class="subheading mb-3">Motor Test</div>
+                            <p>Next, I took apart the car to test the motors themselves. I removed the
+                                control PCB and instead connected the leads of one motor to the outputs
+                                of the driver. Placing the car on its side, I then modified the code
+                                above to drive the motor in reverse for one second, then forward for one
+                                second in the loop.</p>
+                            <img src="assets/lab4_img/motor-side-code.png" style="width:40%" alt="...">
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/tjJVKrjkLAQ?si=b2rY2ks5WUBJc8HG"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <p>Next, I connected the 850mAh battery to the driver instead of the power bench to
+                                ensure the motor can be driven on battery power. I then repeated the above for
+                                the second motor driver and the other motor.</p>
+                            
+                            <div class="subheading mb-3">Car Assembly</div>
+                            <p>With the motors tested, I installed everything to the car, securing the elctronics
+                                in place with tape. The finished product is shown below.</p>
+                            <img src="assets/lab4_img/car.jpg" style="width:50%" alt="...">
+                            <p>Note that the 850mAh battery is not visible here; it is secured in the battery
+                                compartment on the underside with the wires fed through a hole to the drivers.</p>
+                            <p>I then ran the following test sequence to ensure both motors
+                                were still working properly.</p>
+                            <img src="assets/lab4_img/test-sequence-functions.png" style="width:50%" alt="...">
+                            <p>Functions for the test sequence below. Note that the calibration factor is
+                                included&mdash;see discussion below.</p>
+                            <img src="assets/lab4_img/test-sequence-code.png" style="width:35%" alt="...">
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/zpKkvoeFGKA?si=_by4xbDbS6AxKrNg"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <p align="center">All wheels spinning in test sequence.</p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/1SDwddAAgPI?si=y1Me1ltNSanfOcUP"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <p align="center">Test sequence on the ground (calibrated).</p>
+
+                            <div class="subheading mb-3">Lower Limit PWM</div>
+                            <p>Next, I experimented to find the smallest duty cycle for which the robot is able
+                                to move. The lowest duty cycles I found with meaningful movement (see videos
+                                below) were 16.0% for forward/backward movement and 43.3% for spinning in place
+                                (40 and 110 out of 255 for analogWrite).</p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/jnZPYJeULbw?si=VyP5Q9EVqAbY2n3i"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <p align="center">Forward/reverse at 16% duty cycle. Note that the reverse shown here is slightly
+                                slower. I tried turning the car around for the same test and the opposite results
+                                occured&mdash;turns out Phillips 239 has a slight incline.</p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/fXus83w0YAU?si=uxd6IMSomgAUavrH"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <p align="center">Spin in place at 43.3% duty cycle</p>
+
+                            <div class="subheading mb-3">Motor Speed Calibration</div>
+                            <p>
+                                When driving straight forward, the car tended to veer
+                                to the left, indicating that the right wheels were spinning faster than the left.
+                                To fix this, I added a calibration factor between 0 and 1 to slow down the right
+                                motor to match the speed of the left motor. I found 0.76 to be
+                                the best value to get the car to drive straight. The fact that this is such a
+                                large damp in speed&mdash;along with a strange behavior I noticed where the left motor
+                                shows a large mechanical resistance at a certain angular position&mdash;leads me to
+                                suspect a mechanical issue with the left motor, wheels, or gears. The video below shows 
+                                the car driving roughly straight for a little over 6ft.
+                            </p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/TDAWHXVWfzE?si=AWDCIeoeuRXJgHxd"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <p>Finally, the video below shows the car performing a right turn.</p>
+                            <img src="assets/lab4_img/right-turn.png" style="width:50%" alt="...">
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/rFR7uvvLw10?si=zQlAIcJhN_SuajRI"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Lab 5 -->
+            <hr class="m-0" />
+            <section class="resume-section" id="lab5">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Lab 5</h2>
                     <p>intro</p>
                     <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
                             <h3 class="mb-0">Prelab</h3>
-                            <p></p>
+                            <p>prelab</p>
+                        </div>
+                    </div>
                 </div>
             </section>
-            <!-- <hr class="m-0" /> -->
-            <!-- Lab 5 -->
-            <!-- <section class="resume-section" id="lab5">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">Lab 5</h2>
-                    <ul class="fa-ul mb-0">
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            Google Analytics Certified Developer
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            Mobile Web Specialist - Google Certification
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            1
-                            <sup>st</sup>
-                            Place - University of Colorado Boulder - Emerging Tech Competition 2009
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            1
-                            <sup>st</sup>
-                            Place - University of Colorado Boulder - Adobe Creative Jam 2008 (UI Design Category)
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            2
-                            <sup>nd</sup>
-                            Place - University of Colorado Boulder - Emerging Tech Competition 2008
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            1
-                            <sup>st</sup>
-                            Place - James Buchanan High School - Hackathon 2006
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            3
-                            <sup>rd</sup>
-                            Place - James Buchanan High School - Hackathon 2005
-                        </li>
-                    </ul>
-                </div>
-            </section> -->
         </div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
