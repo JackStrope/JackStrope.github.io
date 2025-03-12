@@ -724,9 +724,9 @@
                             <img src="assets/lab5_img/pi-pwm-plot.png" style="width:50%" alt="...">
                             <p>
                                 Given more time, there are two modifications I'd like to make to the 
-                                controller. First is to add windeup protection to the integral term.
+                                controller. First is to add wind-up protection to the integral term.
                                 During tuning, I had to be very conservative with increasing Ki to 
-                                prevent the I term from getting too high. Windeup protection, which 
+                                prevent the I term from getting too high. Wind-up protection, which 
                                 could be implemented by adding the following max_integral logic to 
                                 the controller, prevents the I term from overshooting too much when 
                                 the car arrives at the target.
