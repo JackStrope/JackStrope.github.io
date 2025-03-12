@@ -614,11 +614,132 @@
             <section class="resume-section" id="lab5">
                 <div class="resume-section-content">
                     <h2 class="mb-5">Lab 5</h2>
-                    <p>intro</p>
+                    <p>
+                        In this lab, I implemented a PID controller for my robot, allowing it to drive
+                        quickly up to a wall and stop 1ft (304mm) from it.
+                    </p>
                     <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
                             <h3 class="mb-0">Prelab</h3>
-                            <p>prelab</p>
+                            <p>
+                                To start, I established a system for collecting data during PID control
+                                tests. I defined global arrays to log the time, distance to the wall,
+                                and duty cycle sent to the motor drivers. I then made a new command, START_PID, to 
+                                be called by a Jupyter notebook to run the PID test, log the data, and 
+                                send it to Jupyter. 
+                            </p>
+                            <img src="assets/lab5_img/log-data-code.png" style="width:50%" alt="...">
+                            <p>
+                                LOG_SIZE is set to 1000, which is large enough that the arrays are never 
+                                completely filled. Only the collected data is sent to Jupyter. The code 
+                                to call this command and receive the data in Jupyter is shown below.
+                            </p>
+                            <img src="assets/lab5_img/data-log-python.png" style="width:50%" alt="...">
+                            <p>
+                                I also made commands to set the calibration factor and the PID constants 
+                                from Jupyter to prevent having to reupload to the Artemis so often.
+                            </p>
+                            <img src="assets/lab5_img/setter-commands.png" style="width:50%" alt="...">
+                            <p>Arduino side</p>
+                            <img src="assets/lab5_img/setter-commands-python.png" style="width:50%" alt="...">
+                            <p>Python side with example values</p>
+                            <p>
+                                I also copied over the required code from Lab 4 to run the motors, including
+                                the following helper functions and setup code.
+                            </p>
+                            <img src="assets/lab5_img/motor-functions.png" style="width:50%" alt="...">
+                            <p>Helper functions for driving the motors</p>
+                            <img src="assets/lab5_img/motor-setup.png" style="width:50%" alt="...">
+                            <p>Code added to setup; I included a line to brake on setup to ensure the motors don't move immediately.</p>
+                            <p>
+                                Finally, I added another call to brake() in the loop function to run after 
+                                disconnecting from BLE. This way, the motors will automatically stop if 
+                                the BLE connection is lost at any time.
+                            </p>
+                            <img src="assets/lab5_img/hard-stop.png" style="width:50%" alt="...">
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Lab Tasks</h3>
+                            <div class="subheading mb-3">P controller</div>
+                            <p>
+                                I started by implementing a P controller, which uses only a proportional
+                                term to calculate the duty cycle of the PWM output to the motors. I 
+                                wrote the following function to be called from the START_PID command.
+                            </p>
+                            <img src="assets/lab5_img/p-controller-code.png" style="width:50%" alt="...">
+                            <p>
+                                The function is called within the START_PID command as follows. The
+                                return value is the 0-255 duty cycle output to the motors.
+                            </p>
+                            <img src="assets/lab5_img/call-pid.png" style="width:50%" alt="...">
+                            <p>
+                                To estimate a starting value for the proportional constant Kp, I 
+                                reasoned that Kp is equal to the duty cycle output to the motors 
+                                divided by the distance from the target at any time. The maximum 
+                                output sent to the motors (127 for now) cooresponds to the maximum distance 
+                                detectable by the ToF sensor (4000mm since I set the distance 
+                                mode to long). So, Kp can be estimated as 127/(4000 - 304), which is 
+                                approximately 0.035. Through experimentation, I optimized this to 
+                                0.041. The resultant P controller is demonstrated in the video below.
+                            </p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/eTxxeN76RxU?si=Ak_1Lpsaf8CmyIc_"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <p>I plotted the distance and pwm output vs time in the plots below.</p>
+                            <img src="assets/lab5_img/p-dist-plot.png" style="width:50%" alt="...">
+                            <img src="assets/lab5_img/p-pwm-plot.png" style="width:50%" alt="...">
+
+                            <div class="subheading mb-3">PI controller</div>
+                            <p>
+                                Next, I added an integral term to my controller. With this term, the 
+                                car will quickly pick up speed proportional to an accumulated error 
+                                over time. This way, if the car starts far away from the target, it 
+                                will quickly "recognize" that it is not making much headway from the P 
+                                term, and the I term will rapidly grow, causing the car to quickly 
+                                pick up speed. The new controller function is shown below.
+                            </p>
+                            <img src="assets/lab5_img/pi-controller-code.png" style="width:50%" alt="...">
+                            <p>
+                                To tune the values of Kp and Ki, I followed a heuristic procedure as 
+                                discussed in lecture. I started with Ki at 0 and slightly increased 
+                                Kp until it overshot the target at Kp=0.044. I then cut this in half
+                                and steadily increased Ki until it slightly overshoots again. Then I 
+                                cut this in half and steadily increased Kp until slight overshoot. I 
+                                roughly iterated this process to experimentally find the values 
+                                Kp = 0.036 and Ki = 0.0003 work the best for this PI controller. The 
+                                results are shown in the video demonstration and plots below.
+                            </p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/ibSVOWad0sA?si=6UTa8DeaBYAIYDDr"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <img src="assets/lab5_img/pi-dist-plot.png" style="width:50%" alt="...">
+                            <img src="assets/lab5_img/pi-pwm-plot.png" style="width:50%" alt="...">
+                            <p>
+                                Given more time, there are two modifications I'd like to make to the 
+                                controller. First is to add windeup protection to the integral term.
+                                During tuning, I had to be very conservative with increasing Ki to 
+                                prevent the I term from getting too high. Windeup protection, which 
+                                could be implemented by adding the following max_integral logic to 
+                                the controller, prevents the I term from overshooting too much when 
+                                the car arrives at the target.
+                            </p>
+                            <img src="assets/lab5_img/windeup.png" style="width:50%" alt="...">
+                            <p>
+                                Another modification I'd like to add is a derivative term to make 
+                                it a PID controller. To do so, I would add a "sliding window" array 
+                                to keep track of error values. The gradient between consecutive values 
+                                gives the rate of change (derivative) of the error with time. This 
+                                would allow the controller to predict when the error will reach 0 and 
+                                preemptively adjust the motor output to prevent overshoot.
+                            </p>
                         </div>
                     </div>
                 </div>
