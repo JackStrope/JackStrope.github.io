@@ -31,6 +31,7 @@
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab3">Lab 3</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab4">Lab 4</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab5">Lab 5</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab6">Lab 6</a></li>
                 </ul>
             </div>
         </nav>
@@ -740,6 +741,97 @@
                                 would allow the controller to predict when the error will reach 0 and 
                                 preemptively adjust the motor output to prevent overshoot.
                             </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lab 6 -->
+            <hr class="m-0" />
+            <section class="resume-section" id="lab6">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Lab 6</h2>
+                    <p>
+                        In this lab, I implemented a PID controller for the robot to maintain its 
+                        orientation. To do so, the robot collects data from the IMU to determine 
+                        the yaw and spins in place left or right to maintain the initial yaw.
+                    </p>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Prelab</h3>
+                            <p>
+                                Like in the previous lab, I started by establishing a system to 
+                                collect log data and send it to Python for debugging and plotting. 
+                                For this, I used the same system from the previous lab, replacing 
+                                the distance log with a yaw log.
+                            </p>
+                            <img src="assets/lab6_img/log-data-code.png" style="width:50%" alt="...">
+                            <p>New Arduino command to start PID control and log data</p>
+                            <img src="assets/lab6_img/log-data-python.png" style="width:50%" alt="...">
+                            <p>Python side</p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Lab Tasks</h3>
+                            <div class="subheading mb-3">Collecting Yaw Data</div>
+                            <p>
+                                The first step was to establish a way to accurately obtain the 
+                                yaw at any given time. Instead of simply gathering gyroscope data, 
+                                I followed the tutorial provided for using the digital motion processing (DMP),
+                                which allows the accelerometer and gyroscope to be automatically calibrated 
+                                to provide accurate roll, pitch, and yaw data. This is useful 
+                                because it utilizes both the accelerometer and the gyroscope rather than one 
+                                or the other, increasing the accuracy through sensor fusion. What's also 
+                                useful about the DMP is that it automatically adjusts for the orientation of 
+                                the IMU, so the IMU does not need to lay perfectly flat or be manually 
+                                calibrated to provide accurate measurements.
+                            </p>
+                            <img src="assets/lab6_img/dmp-init.png" style="width:50%" alt="...">
+                            <p>Code added to setup() to initialize the DMP.</p>
+                            <img src="assets/lab6_img/update-dmp.png" style="width:75%" alt="...">
+                            <p>Helper function to update the roll, pitch, and yaw global variables.</p>
+
+                            <div class="subheading mb-3">P controller</div>
+                            <p>
+                                Now that I can obtain the yaw at any given time, I implemented the P 
+                                controller, largely copying what I did last time for the distance P 
+                                controller. The primary modification I made was for the controller to 
+                                return a float instead of a uint8_t, since the error can be negative. 
+                                Since the yaw is measured in the range -180&deg; to 180&deg;, I also 
+                                normalized the error so that if the yaw wraps around past 180 or -180, 
+                                the speed is still properly calculated.
+                                The command then converts this to the appropriate PWM duty cycle and 
+                                calls the appropriate function to spin the robot (spin_left() if the 
+                                error is positive or spin_right() if the error is negative).
+                            </p>
+                            <img src="assets/lab6_img/p-controller-code.png" style="width:50%" alt="...">
+                            <p>P controller function</p>
+                            <img src="assets/lab6_img/p-command-code.png" style="width:50%" alt="...">
+                            <p>Updated command</p>
+                            <p>
+                                To get an initial value for kp, I considered that it needs to be high 
+                                enough that the motors spin relatively fast for any errors above ~20&deg; 
+                                or so. So, I started with kp = 3, which seems to be a good choice for the 
+                                P controller.
+                            </p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/Xt5NybTdwLk?si=FXyJb-s_OrKOs9LY"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <img src="assets/lab6_img/p-yaw-time.png" style="width:50%" alt="...">
+                            <!-- <img src="assets/lab6_img/p-speed-time.png" style="width:50%" alt="..."> -->
+
+                            <div class="subheading mb-3">PI controller</div>
+                            <p>
+                                Next, I modified the controller to include an integral term. Similar again 
+                                to the previous lab, I added an error_sum variable which accumulates 
+                                error over time. 
+                            </p>
+                            <img src="assets/lab6_img/pi-controller-code.png" style="width:50%" alt="...">
+                            <p>Modification to controller function</p>
                         </div>
                     </div>
                 </div>
