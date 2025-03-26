@@ -14,6 +14,9 @@
         <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <!-- For writing equations using LaTeX -->
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"> </script>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -32,6 +35,7 @@
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab4">Lab 4</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab5">Lab 5</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab6">Lab 6</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab7">Lab 7</a></li>
                 </ul>
             </div>
         </nav>
@@ -832,6 +836,154 @@
                             </p>
                             <img src="assets/lab6_img/pi-controller-code.png" style="width:50%" alt="...">
                             <p>Modification to controller function</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lab 7 -->
+            <hr class="m-0" />
+            <section class="resume-section" id="lab7">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Lab 7</h2>
+                    <p>
+                        In this lab, I implemented a Kalman Filter (KF) to improve the PID controller 
+                        from Lab 5. The KF supplements the slowly-sampled, noisy data
+                        from the ToF sensor, allowing the robot to drive faster up to the wall and succesfully 
+                        stop at the desired distance from the wall.
+                    </p>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Estimate Drag and Momentum</h3>
+                            <p>
+                                To implement the Kalman Filter, I first needed to build a state space 
+                                for the system. To do so, I first estimated the drag and momentum 
+                                terms for the A and B matrices using a step response. I made a new 
+                                command in the Arduino code to drive up to the wall at a set speed 
+                                and brake when it gets close enough. 
+                            </p>
+                            <img src="assets/lab7_img/step-resp-code.png" style="width:50%" alt="...">
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/357Mn8kjerw?si=CL3kr3DUBWe4JtXX"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <p>
+                                This is essentially the same as the command I used for the PID controller
+                                in Lab 5, but the PID control logic is replaced by logic to simply drive 
+                                at 50% duty cycle (127 out of 255) until the robot is 6ft from the wall (I determined this 
+                                distance experimentally to prevent it from crashing into the wall). Note 
+                                I added logic so that the robot only brakes when the ToF sensor measures 
+                                less than 6ft if it's been going for 2 seconds--this is because the 
+                                robot starts slightly out of range, so the ToF sensors don't get valid 
+                                readings until slightly after it has started moving. For the same reason, 
+                                in the distance and speed plots below, I omitted the first several data points 
+                                until the sensor is in range and measures valid distances. For the speed 
+                                plot below, I also applied a low-pass filter to smooth the data, since the 
+                                calculated speeds are rather spiky due to sensor noise from the motors, etc.
+                            </p>
+                            <img src="assets/lab7_img/speed-plot-code.png" style="width:50%" alt="...">
+                            <img src="assets/lab7_img/pwm.png" style="width:50%" alt="...">
+                            <img src="assets/lab7_img/dists.png" style="width:50%" alt="...">
+                            <img src="assets/lab7_img/speeds.png" style="width:50%" alt="...">
+                            <p>
+                                The speed of the robot appears to stabilize around 2.74 m/s (negative in 
+                                the plot since it's moving toward the wall). To estimate the mass and 
+                                drag coefficient, I then calculated the 90% rise time.
+                            </p>
+                            <p>\( 0.9 \cdot 2.74 m/s = 2.466 m/s \)</p>
+                            <p>
+                                Since the first data point that exceeds this speed overshoots by quite a 
+                                bit, I instead used the 84% rise time, which I computed as follows.
+                            </p>
+                            <img src="assets/lab7_img/84-risetime.png" style="width:50%" alt="...">
+                            <p>
+                                Finally, I estimated the drag coefficient and mass as follows. At the 
+                                steady-state speed, acceleration is ~0. Taking \( u = 1 \) (since 
+                                127 PWM is our max acceleration),
+                            </p>
+                            <p>\( 0 = \frac{u}{m} - \frac{d}{m} \cdot v_{ss} \)</p>
+                            <p>\( d = \frac{u}{v_{ss}} = \frac{1}{2.74 m/s} \approx 0.365 \)</p>
+                            <p>To estimate the mass, we use the exponential model of velocity for a first-order system:</p>
+                            <p>\( v(t) = v_{ss} \cdot (1 - e^{-\frac{d}{m}t}) \)</p>
+                            <p>\( \ln(1 - \frac{v(t)}{v_{ss}}) = -\frac{d}{m}t \)</p>
+                            <p>\( m = \frac{ -d \cdot t }{ \ln(1 - v(t)/v_{ss}) }
+                                = \frac{ (-0.365)(2.507) }{ \ln(1 - 2.308/2.74) }
+                                \approx 0.496 \)</p>
+                            <img src="assets/lab7_img/drag-mass-code.png" style="width:50%" alt="...">
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Kalman Filter in Python</h3>
+                            <p>
+                                Now, we can compute the A and B matrices for the following state-space 
+                                equations (credit: Fast Robots lecture notes).
+                            </p>
+                            <img src="assets/lab7_img/AB-eqns.png" style="width:25%" alt="...">
+                            <p>I used the following Python code to calculate the A and B matrices</p>
+                            <img src="assets/lab7_img/AB-code.png" style="width:50%" alt="...">
+                            <p>
+                                Next, I discretized the matrices. To do so, I needed the sampling rate 
+                                of my setup. Since I already calculated the time differences while 
+                                calculating the speeds above, I reused the dt array to find the 
+                                sampling rate.
+                            </p>
+                            <img src="assets/lab7_img/sampling-rate.png" style="width:50%" alt="...">
+                            <p>
+                                Though not perfectly consistent, my setup samples the data at about 10.12 Hz.
+                                I then discretized the A and B matrices as follows.
+                            </p>
+                            <img src="assets/lab7_img/discretize-AB.png" style="width:50%" alt="...">
+                            <p>
+                                Since I flipped my speeds to be positive when calculating d and m above, 
+                                I will use the following for my C matrix.
+                            </p>
+                            <img src="assets/lab7_img/c-matrix.png" style="width:50%" alt="...">
+                            <p>
+                                Next, I estimated the measurement and process noise. Since the datasheet 
+                                for the ToF sensors lists the ranging error for long-range mode as 20mm, 
+                                my measurement noise matrix is
+                            </p>
+                            <p>\( \Sigma_z = \begin{bmatrix} (20mm)^2 \end{bmatrix} = \begin{bmatrix} 400mm \end{bmatrix} \).</p>
+                            <p>Using the expressions used in lecture,</p>
+                            <p>\( \sigma_x = \sqrt{10^2 \cdot \frac{1}{0.099}} \approx 31.78 mm \)</p>
+                            <p>and</p>
+                            <p>\( \sigma_{\dot{x}} = \sqrt{10^2 \cdot \frac{1}{0.099}} \approx 31.78 mm/s \),</p>
+                            <p>
+                                where 0.099 is my sampling period in seconds. So, my process noise matrix is 
+                            </p>
+                            <p>\(
+                                \Sigma_u = 
+                                \begin{bmatrix}
+                                    (31.78mm)^2 &              0 \\
+                                              0 & (31.78mm/s)^2
+                                \end{bmatrix} = 
+                                \begin{bmatrix}
+                                    1010mm &        0 \\
+                                         0 & 1010mm/s
+                                \end{bmatrix}
+                            \)</p>
+                            <p>I defined these matrices in Python and defined my Kalman Filter as follows.</p>
+                            <img src="assets/lab7_img/kf-python.png" style="width:60%" alt="...">
+                            <p>
+                                Finally, I defined the initial conditions for my KF loop. I decided to initialize
+                                the uncertainty in both position and speed to 20 mm, since this is the uncertainty 
+                                in ToF measurements. Then, I ran the KF loop and plotted its predicted positions 
+                                vs the measured positions in the same dataset as before.
+                            </p>
+                            <img src="assets/lab7_img/plot-kf-code.png" style="width:60%" alt="...">
+                            <img src="assets/lab7_img/kf-python-plot.png" style="width:50%" alt="...">
+                            <p>Since this already appears very accurate, I did not adjust any parameters.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Kalman Filter on the Robot</h3>
+                            <p>
+                                Next, I 
+                            </p>
                         </div>
                     </div>
                 </div>
