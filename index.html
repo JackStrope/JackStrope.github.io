@@ -985,7 +985,60 @@
                                 Next, I implemented the KF on the robot to enable improved control with the 
                                 PID controller. I added a new command START_PID_KF, which is mostly identical 
                                 to my START_PID command from Lab 5, but after the PWM duty cycle is calculated 
-                                by the pid_control() function, 
+                                by the pid_control() function, it is passed into a new function which predicts 
+                                the new position and speed according to the Kalman Filter. This function is 
+                                essentially the KF I implemented in Python translated to Arduino.
+                            </p>
+                            <img src="assets/lab7_img/kf-arduino-setup.png" style="width:50%" alt="...">
+                            <p>New global variables and include for matrix math</p>
+                            <img src="assets/lab7_img/kf-update.png" style="width:50%" alt="...">
+                            <p>New function to run the KF in Arduino</p>
+                            <img src="assets/lab7_img/kf-loop-arduino.png" style="width:50%" alt="...">
+                            <p>Updated loop for the command to run the PID and collect KF data</p>
+                            <p>
+                                I then ran the PID controller (the PI controller from Lab 5, but I later 
+                                added a D term) and plotted the KF predicted positions against the 
+                                measured positions over time. Note that the KF is not affecting the controller 
+                                yet&mdash;I'm just plotting the output of the KF to ensure it's working 
+                                as it was in the Python implementation.
+                            </p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/m6v6eulIWZg?si=8BaI5r3qyXFU3tJy"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <img src="assets/lab7_img/kf-plot-arduino.png" style="width:50%" alt="...">
+                            <p>
+                                Aside from the deviation at the beginning, the KF-predicted position vs 
+                                time aligns very closely with the measured distance, so the Kalman 
+                                Filter implemented in Arduino is working very well.
+                            </p>
+                            <p>
+                                Finally, I inegrated the Kalman Filter into the PID controller. To do so, I 
+                                simply switched the way controller measures the current distance to be the 
+                                KF-predicted distance. To make the D term more stable, I also switched the 
+                                way it is calculated to use the KF-predicted velocity, rather than 
+                                differentiating the errors over time, since this is less noisy. I also made 
+                                some minor tweaks to the way the duty cycle is calculated and output to the 
+                                motors&mdash;now, if the calculated duty cycle is negative, the robot reverses 
+                                at the calculated speed, rather than coasting. Also, if the magnitude of the 
+                                duty cycle is less than a minimum value (35), it brakes, since anything in that 
+                                range is too small to move the robot anyway&mdash;this was just to eliminate the 
+                                hum of the motors trying to spin when the duty cycle was too low. After tuning 
+                                the PID coefficients using a similar heuristic method to the lecture notes, the 
+                                robot drive up to the wall much faster than before and stop at the right distance 
+                                without overshooting or oscillating.
+                            </p>
+                            <img src="assets/lab7_img/final-pid.png" style="width:50%" alt="...">
+                            <p>Updated PID controller</p>
+                            <img src="assets/lab7_img/final-control-loop.png" style="width:50%" alt="...">
+                            <p>Updated control loop</p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/ByaX-meTHUc?si=CQIA58eZ_6xagZYM"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
                             </p>
                         </div>
                     </div>
