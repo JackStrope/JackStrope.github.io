@@ -36,6 +36,7 @@
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab5">Lab 5</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab6">Lab 6</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab7">Lab 7</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab8">Lab 8</a></li>
                 </ul>
             </div>
         </nav>
@@ -1036,6 +1037,92 @@
                             <p>Updated control loop</p>
                             <p align="center">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/ByaX-meTHUc?si=CQIA58eZ_6xagZYM"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lab 8 -->
+            <hr class="m-0" />
+            <section class="resume-section" id="lab8">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Lab 8</h2>
+                    <p>
+                        In this lab, I had my robot perform a stunt. The robot starts at
+                        a starting line 8 ft (8 floor tiles) from the wall. It quickly 
+                        drives up to the wall, drifts to turn around, and then drives 
+                        back to the starting line. The goal was to execute the stunt and 
+                        get the robot back to the starting line as fast as possible.
+                    </p>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Drift</h3>
+                            <p>
+                                To perform this stunt, I added a new command, DRIFT, to the Arduino file. When
+                                executed, this command first computes the initial yaw and 
+                                stores this for later. It then goes through a sequence of 
+                                three "modes" to perform the drift. The first is to drive up to 
+                                the wall at max speed until it is close enough. The second 
+                                is to execute the PID controller on orientation from Lab 6,
+                                setting the target yaw to the initial yaw + 180&deg;.
+                                I experimented with the P, I, and D terms, and found that the 
+                                robot performs a clean drift-turn at this speed with values of 
+                                0.4, 0.001, and 10, respectively. Finally, after finishing the 
+                                drift, the final step is to return to the starting line at 
+                                max speed and then stop.
+                            </p>
+                            <p>
+                                I considered adding logic to the drift stage to check the yaw in each iteration and use
+                                this to decide when to stop drifting and start returning to the
+                                starting line, but I instead decided to use open-loop control&mdash;I.e., manually
+                                deciding when to transition from the drift stage to the return stage. I 
+                                accomplished this by storing a timestamp of when the robot starts drifting 
+                                and then setting it to stop drifting a set time after that. I tuned this 
+                                value experimentally (with another command I added to set the drift time 
+                                from Jupyter) to determine that the robot reaches the desired orientation 
+                                after drifting for 200ms.
+                            </p>
+                            <p>
+                                A problem I ran into with the transition between drifting 
+                                and returning to the starting line was, if the robot tries to accelerate at max 
+                                speed just as it reaches the right orientation, before it has had a chance to 
+                                stop and gain traction, it continues drifting and often does donuts in 
+                                place, rather than driving straight to the starting line. To fix this, I simply added an 
+                                extra step to the beginning of the return stage to have the robot momentarily
+                                brake to stabilize and regain traction before continuing to drive forward. I again 
+                                tuned the span of time the robot needs to brake here to find the minimum time 
+                                needed to stabilize.
+                            </p>
+                            <p>
+                                Finally, with the robot able to drift-stop to the correct yaw and brake for just the 
+                                right amount of time to regain traction, it simply drives forward at max speed after stabilizing 
+                                until it passes the starting line. Again, I tuned the span of time needed to pass the starting line
+                                to determine when the robot should brake to ensure it crosses. The full command is shown below,
+                                followed by my updated orientation PID controller.
+                            </p>
+                            <img src="assets/lab8_img/drift_code-part1.png" style="width:50%" alt="...">
+                            <img src="assets/lab8_img/drift_code-part2.png" style="width:50%" alt="...">
+                            <img src="assets/lab8_img/drift_code-part3.png" style="width:50%" alt="...">
+                            <p>Drift command</p>
+                            <img src="assets/lab8_img/pid_controller.png" style="width:70%" alt="...">
+                            <p>Updated PID controller for setting yaw</p>
+                            <div class="subheading mb-3">Trial 1</div>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/9xhy6ATf2yg?si=6h0vOnb_fOgK5nn1"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <img src="assets/lab8_img/dist-plot1.png" style="width:50%" alt="...">
+                            <img src="assets/lab8_img/yaw-plot1.png" style="width:50%" alt="...">
+
+                            <div class="subheading mb-3">Bloopers</div>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/rSHTJjIMQCg?si=AFmWn61Q1b7NHZp-"
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
                                 </iframe>
