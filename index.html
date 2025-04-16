@@ -37,6 +37,7 @@
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab6">Lab 6</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab7">Lab 7</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab8">Lab 8</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab9">Lab 9</a></li>
                 </ul>
             </div>
         </nav>
@@ -1126,6 +1127,147 @@
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
                                 </iframe>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lab 9 -->
+            <hr class="m-0" />
+            <section class="resume-section" id="lab9">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Lab 9</h2>
+                    <p>
+                        In this lab, I configured the robot to map out a static room. To do 
+                        so, I place it in various locations around the area to map and have 
+                        it spin in place, incrementally recording ToF data to measure how far 
+                        the wall is. I decided to have the robot turn in 15 increments of 
+                        24&deg;.
+                    </p>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Control</h3>
+                            <p>
+                                The first step was to get the robot to spin in a circle at small 
+                                increments. To do so, I reused my orientation PID controller from 
+                                Lab 6. Since this controller struggles to turn the robot over 
+                                small angle differences, I preemptively wrapped the tires with 
+                                tape&mdash;the non-sticky side of the tape has low friction with 
+                                the floor compared to the tires, allowing the robot to start moving
+                                from rest more easily. The tradeoff with this lower traction is that 
+                                the robot will be harder to control when it's already moving,
+                                primarily in its ability to brake and turn at higher speeds.
+                            </p>
+                            <img src="assets/lab9_img/tapebot.jpg" style="width:50%" alt="...">
+                            <p>
+                                With this change to my robot, I then revisited what minimum PWM 
+                                output is required to spin the robot in place. I made a couple 
+                                new commands for basic movement&mdash;DRIVE_FORWARD, SPIN_LEFT, and 
+                                SPIN_RIGHT&mdash;which take as parameters the speed and time 
+                                to move. Using the latter two, I experimentally determined that the 
+                                minimum PWM output required to get the robot moving for an in-place 
+                                spin is 90. Though this is only a slight decrease from the old value 
+                                of 110, if I spin the robot with 110 PWM now, it spins much faster 
+                                than it used to. Thus, the addition of tape to the tires appears to 
+                                provide a fairly significant increase in precise orientation control.
+                            </p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/ZGTxtmpzVCI?si=XhLqIBMcGO0ck54N"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <p align="center">New minimum PWM of 90</p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/BvvJ9sBuSck?si=zvD7_xM5VPojpZFv"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <p align="center">Old minimum PWM of 110 with new configuration</p>
+                            <p>
+                                I then made a new command, START_MAPPING, to spin the robot in 
+                                small increments and read ToF data. To start, I made it just spin for one 
+                                increment, re-tuning my PID values until the robot could consistently make 
+                                the 24-degree turn and stop in the right place. A good set of values I 
+                                found was kp = 1.9, ki = 0.033, and kd = 0.8. A larger-than-usual I 
+                                term proved very useful for accuracy, since any combination of the P 
+                                and D terms alone tended to overshoot or undershoot the target yaw by a 
+                                significant amount.
+                            </p>
+                            <p>
+                                With the robot able to consistently make a 24-degree in-place turn, I 
+                                configured it to make 15 such turns in a row, finishing at its initial 
+                                orientation. To do so, I added logic to detect when one turn was completed: 
+                                a counter variable keeps track of how many measurements in a row are within 
+                                a narrow range (I chose 5&deg;) of the target angle. When enough (50, since 
+                                the loop runs very fast) measurements in a row are within this range, the 
+                                robot decides that the turn is complete. It then measures the ToF data (after 
+                                braking briefly to stabilize for accurate ToF measurements), stores the 
+                                current yaw and ToF reading in arrays, and calculates the next yaw to 
+                                turn to. The code below shows the full START_MAPPING command.
+                            </p>
+                            <img src="assets/lab9_img/start_mapping-1.png" style="width:60%" alt="...">
+                            <img src="assets/lab9_img/start_mapping-2.png" style="width:60%" alt="...">
+                            <img src="assets/lab9_img/start_mapping-3.png" style="width:60%" alt="...">
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/7K5VXto9bvk?si=m7sQV5E-puFIvk4u"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <p align="center">Example mapping outside Phillips 238</p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Processing the Data</h3>
+                            <p>
+                                With the yaw and distance measurements, we can map out the walls 
+                                around the area. I defined the wall on the left (when facing 
+                                the door) as the y-axis (x = 0) and the wall opposite the door 
+                                as the x-axis (y = 0). Thus, the position of the robot in the video above is 
+                                (2,7), measuring x and y in feet (each floor tile is 1x1 ft).
+                                I repeated the scan I did in the video above for two more points: 
+                                (5,4) and (3,3). To visualize the results of each scan, I plotted 
+                                the data from each scan in a polar plot and in a Cartesian plane 
+                                in the global frame. To plot the latter, I applied the T-matrix:
+                            </p>
+                            <p>\( T = 
+                                \begin{bmatrix}
+                                    cos(\theta) & -sin(\theta) & x_r \\
+                                    sin(\theta) &  cos(\theta) & y_r \\
+                                              0 &            0 &   1
+                                \end{bmatrix}
+                            \)</p>
+                            <p>
+                                Where &theta; is the robot's orientation in the global frame (relative to 
+                                the x-axis) and (x<sub>r</sub>, y<sub>r</sub>) is the robot's position 
+                                in the global frame. The results of the three scans are shown in the polar 
+                                and Cartesian plots below.
+                            </p>
+                            <img src="assets/lab9_img/polar_plot-1.png" style="width:40%" alt="...">
+                            <img src="assets/lab9_img/cart_plot-1.png" style="width:40%" alt="...">
+                            <p align="center">First scan at (2,7)</p>
+                            <img src="assets/lab9_img/polar_plot-2.png" style="width:40%" alt="...">
+                            <img src="assets/lab9_img/cart_plot-2.png" style="width:40%" alt="...">
+                            <p align="center">First scan at (5,4)</p>
+                            <img src="assets/lab9_img/polar_plot-3.png" style="width:40%" alt="...">
+                            <img src="assets/lab9_img/cart_plot-3.png" style="width:40%" alt="...">
+                            <p align="center">First scan at (3,3)</p>
+                            <img src="assets/lab9_img/cart_plot-final.png" style="width:50%" alt="...">
+                            <p>Merged Cartesian plot</p>
+                            <p>
+                                The final map of the area, shown in the last Cartesian plot above, is 
+                                quite messy, but provides a decent map of the door, and surrounding walls.
+                                It should be noted that many points around the bottom-left and bottom-right 
+                                of the image should be ignored, since these are measurements where the sensor 
+                                did not see any walls because the scans were done in a hallway. The 
+                                map could likely be improved by performing more scans at different locations.
+                                It could also likely be improved by taking multiple ToF readings at each 
+                                incremental angle and averaging them, rather than just taking one, since 
+                                individual ToF readings can be inaccurate due to noise, interference, etc.
                             </p>
                         </div>
                     </div>
