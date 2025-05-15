@@ -38,6 +38,7 @@
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab7">Lab 7</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab8">Lab 8</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab9">Lab 9</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab11">Lab 11</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab12">Lab 12</a></li>
                 </ul>
             </div>
@@ -1275,6 +1276,108 @@
                 </div>
             </section>
 
+            <!-- Lab 11 -->
+            <hr class="m-0" />
+            <section class="resume-section" id="lab11">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Lab 11</h2>
+                    <p>
+                        In this lab, I performed localization with the Bayes filter on the real 
+                        robot. Only the update step is used here, since the robot's motion is 
+                        too noisy to do the prediction step. 
+                    </p>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Localization in Simulation</h3>
+                            <p>
+                                After setting up the base code, I ensured it was set up properly 
+                                by testing the localization in simulation, using a staff-provided 
+                                Bayes filter localization module. The results are shown below.
+                            </p>
+                            <img src="assets/lab11_img/localization_sim.png" style="width:80%" alt="...">
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Localization on Real Robot</h3>
+                            <p>
+                                Since the update step being performed turns the robot 360 degrees 
+                                in place to collect sensor data at each incremental turn angle, I 
+                                reused the START_MAPPING command from Lab 9. I renamed it to 
+                                START_LOCALIZATION for clarity, and increased the size of the 
+                                arrays that store the sensor readings to 18, so that 18 sensor 
+                                readings are collected at 20-degree increments as the robot spins.
+                                Other than this, I made no changes to the command. During my Lab 9 
+                                design, I had already parameterized the angle by which the robot 
+                                turns for each incremental reading by making it a global variable 
+                                with a corresponding SET_YAW_INCREMENT command for setting it 
+                                from Jupyter.
+                            </p>
+                            <img src="assets/lab11_img/start_localization-1.png" style="width:50%" alt="...">
+                            <img src="assets/lab11_img/start_localization-2.png" style="width:50%" alt="...">
+                            <img src="assets/lab11_img/start_localization-3.png" style="width:50%" alt="...">
+                            <img src="assets/lab11_img/start_localization-4.png" style="width:50%" alt="...">
+                            <p>The full START_LOCALIZATION command.</p>
+                            <p>
+                                To use this command to perform the update step of the Bayes filter, I 
+                                implemented the member function perform_observation_loop of the RealRobot
+                                class defined in the Lab 11 Jupyter notebook. The function simply sends 
+                                the command to the robot and waits for the response. The robot stores the
+                                readings in an array and sends them all at once when it finishes. The 
+                                Python function places the ranges and bearings in Numpy arrays and returns 
+                                these.
+                            </p>
+                            <img src="assets/lab11_img/real_robot-1.png" style="width:85%" alt="...">
+                            <img src="assets/lab11_img/real_robot-2.png" style="width:85%" alt="...">
+                            <p>
+                                I then ran the udpate step as follows to localize the robot at a few 
+                                points within the course.
+                            </p>
+                            <img src="assets/lab11_img/init_robot.png"  style="width:85%" alt="...">
+                            <img src="assets/lab11_img/update_step.png" style="width:85%" alt="...">
+                            <p>
+                                The results for each localization are shown below.
+                            </p>
+
+                            <div class="subheading mb-3">Point (-3, -2)</div>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/IuJCjCby-6o?si=mq3yoLZqoybHCnSm"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            <img src="assets/lab11_img/pt1.png" style="width:50%" alt="...">
+                            </p>
+
+                            <div class="subheading mb-3">Point (5, -3)</div>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/H0ZfjmSyPe8?si=GDtz8aWwpIQ0QAGR"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            <img src="assets/lab11_img/pt2.png" style="width:50%" alt="...">
+                            </p>
+
+                            <div class="subheading mb-3">Point (5, 3)</div>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/R7lQuGKll9Q?si=dW6o0aTlFQswekXL"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            <img src="assets/lab11_img/pt3.png" style="width:50%" alt="...">
+                            </p>
+
+                            <p>
+                                Though not perfect, the believed postitions shown in the plotter screenshots
+                                above are quite close to the actual positions of the robot. The accuracy of 
+                                these localizations is also fairly consistent between runs, varying by no more than about 1ft. Sensor noise is 
+                                likely the primary source of error.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
             <!-- Lab 12 -->
             <hr class="m-0" />
             <section class="resume-section" id="lab12">
@@ -1303,7 +1406,7 @@
                             <p>
                                 When attempting to implement this, however, I began running into problems 
                                 with the localizations. Though the robot could localize its position 
-                                in the course very accurately in Lab 11, it was now very inaccurate, and 
+                                in the course fairly accurately and consistently in Lab 11, it was now very inaccurate, and 
                                 very inconsistent. Rerunning code from previous labs, I determined that 
                                 the issue is my front ToF sensor. It seems to no longer be able to 
                                 consistently get accurate distance measurements. I tried brushing dust 
