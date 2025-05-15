@@ -38,6 +38,7 @@
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab7">Lab 7</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab8">Lab 8</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab9">Lab 9</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab12">Lab 12</a></li>
                 </ul>
             </div>
         </nav>
@@ -1273,6 +1274,132 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Lab 12 -->
+            <hr class="m-0" />
+            <section class="resume-section" id="lab12">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Lab 12</h2>
+                    <p>
+                        Finally, in this lab, I programmed the robot to autonomously drive 
+                        along a path in the course in the lab.
+                    </p>
+                    <img src="assets/lab12_img/course.png" style="width:50%" alt="...">
+                    <p>The path the robot follows, starting at the bottom-left corner.</p>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Chosen Method</h3>
+                            <p>
+                                This lab is highly open-ended by nature, as there are many possible 
+                                ways to get the robot to follow the intended path. My original plan 
+                                was to implement a full Bayes filter, replicating how the virtual robot 
+                                travels along the pre-programmed trajectory in the Lab 10 simulation.
+                                Much like the virtual robot in Lab 10, I planned to have my robot 
+                                localize at each waypoint along the path using my Lab 11 code. I could 
+                                then reuse my orientation PID controller to have the robot rotate to
+                                face the next waypoint, then reuse my Lab 5 PID controller to have the 
+                                robot drive forward and stop on the waypoint.
+                            </p>
+                            <p>
+                                When attempting to implement this, however, I began running into problems 
+                                with the localizations. Though the robot could localize its position 
+                                in the course very accurately in Lab 11, it was now very inaccurate, and 
+                                very inconsistent. Rerunning code from previous labs, I determined that 
+                                the issue is my front ToF sensor. It seems to no longer be able to 
+                                consistently get accurate distance measurements. I tried brushing dust 
+                                off the sensor, holding the wires steady while taking measurements, etc., 
+                                but nothing seemed to fix it. It's likely a wiring issue, or perhaps the 
+                                sensor itself has stopped working. Either way, this makes the Bayes filter 
+                                method exceptionally difficult, as the localization is far too inconsistent.
+                            </p>
+                            <p>
+                                To complete this lab without a working ToF sensor, I opted to switch to 
+                                open-loop control. I had already strongly considered this as a potential 
+                                alternative method to explore, since it could offer an exceptional increase 
+                                in speed over the Bayes filter method. The tradeoffs are that open-loop 
+                                control will not be as accurate or consistent. Open-loop control is also less 
+                                extensible, since any desired path for the robot to travel requires writing 
+                                code to explicitly control the robot to follow that path.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Implementation</h3>
+                            <p>
+                                Since open-loop control requires much experimentation with timing, etc.,
+                                my approach was to use modular commands on the Artemis, to be called by 
+                                Python. This way, things can be easily calibrated between runs without 
+                                having to reupload any code to the Artemis.
+                            </p>
+                            <p>
+                                The sequence of steps to follow the path is to drive forward to a waypoint, 
+                                rotate to face the next point, and repeat for all points in the path. I 
+                                already had a command to make the robot drive forward at a given PWM output 
+                                for a given amount of time, so this was perfect to reuse here.
+                            </p>
+                            <img src="assets/lab12_img/drive_forward_code.png" style="width:50%" alt="...">
+                            <p>
+                                I made a new command to use the orientation PID controller from Lab 6 
+                                to spin in place to a desired yaw. To use this to control the yaw 
+                                from Python, I also needed a new command that simply sends the current 
+                                yaw to Jupyter.
+                            </p>
+                            <img src="assets/lab12_img/get_yaw_code.png" style="width:50%" alt="...">
+                            <p>Command to send the current yaw to Jupyter.</p>
+                            <img src="assets/lab12_img/spin_to_angle-1.png" style="width:50%" alt="...">
+                            <img src="assets/lab12_img/spin_to_angle-2.png" style="width:50%" alt="...">
+                            <p>Command to spin in place to a desired yaw.</p>
+                            <p>
+                                It's important that SPIN_TO_ANGLE sends a message back to Juypter when it's
+                                done, so that it and DRIVE_FORWARD can be repeatedly called in sequence 
+                                in a single block of code in the Jupyter notebook. To use the commands and 
+                                handle waiting for responses, I defined the following functions in Jupyter.
+                            </p>
+                            <img src="assets/lab12_img/python_functions.png" style="width:50%" alt="...">
+                            <p>
+                                Note that DRIVE_FORWARD does not need to send a message back to Jupyter when 
+                                it's done executing, since it runs for a set amount of time, given by one of 
+                                the inputs. So, I just delay in Jupyter for that amount of time, plus 300ms 
+                                to allow the robot to stop before proceeding. These functions made it simple 
+                                to execute the sequence of motions to follow the path.
+                            </p>
+                            <img src="assets/lab12_img/open_loop_sequence.png" style="width:50%" alt="...">
+                            <p>
+                                Obtaining the initial yaw is useful for stability since all rotations are 
+                                done in reference to the initial yaw, preventing error from accumulating 
+                                with each rotation. The angles by which the robot spins at each step were 
+                                determined using simple trigonometry, and the time the robot spends driving 
+                                forward to move between each point was detemined experimentally. The distance 
+                                the robot drives for a given time is surprisingly consistent, though it steadily 
+                                decreases as the battery loses charge. This relative consistently made 
+                                experimenting with timing take much less time than I thought. The values shown 
+                                in the script above were what I used for the run shown in the video below.
+                            </p>
+                            <p align="center">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/bg2IZdlEFbE?si=t2zx2dCpd2i0UDPL"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </p>
+                            <p>
+                                Though I was disappointed that my ToF sensor prevented proper closed-loop control 
+                                using the Bayes filter method, I was pleasantly surprised by how effective 
+                                open-loop control proved to be. As shown in the video above, the robot follows 
+                                the path fairly accurately and quite fast. I realized that I technically still 
+                                could have used the Bayes filter method, since my robot can still localize using 
+                                the ToF sensor on the side. However, open-loop control would still be required for 
+                                moving between points, since the front ToF sensor is needed for PID control. Thus, 
+                                implementing the Bayes filter without a working front ToF sensor would have given 
+                                similar results&mdash;it doesn't matter if the robot knows where it is if it can't 
+                                see where it's going.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
         </div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
