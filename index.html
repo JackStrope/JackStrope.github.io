@@ -38,6 +38,7 @@
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab7">Lab 7</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab8">Lab 8</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab9">Lab 9</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab10">Lab 10</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab11">Lab 11</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lab12">Lab 12</a></li>
                 </ul>
@@ -1273,6 +1274,34 @@
                             </p>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <!-- Lab 10 -->
+            <hr class="m-0" />
+            <section class="resume-section" id="lab10">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Lab 10</h2>
+                    <p>
+                        In this lab, I implemented a Bayes Filter for robot localization in
+                        simulation. The simulation environment was set up to match the real-world
+                        course layout used in the lab. I discretized the environment into a grid
+                        and initialized a uniform belief distribution over all possible robot poses.
+                    </p>
+
+                    <p>At each timestep, the Bayes Filter performed two steps:</p>
+                    <ul>
+                        <li><b>Prediction Step:</b> Used the odometry motion model to estimate the robot's new pose based on changes in its odometry readings.</li>
+                        <li><b>Update Step:</b> Incorporated new ToF sensor observations by computing the likelihood of each possible pose and updating the belief accordingly.</li>
+                    </ul>
+
+                    <p>
+                        To simulate motion, I had the virtual robot move around the course in a
+                        square loop, and at each pose, the Bayes Filter updated the belief. I
+                        visualized the belief distribution at each step to confirm the filter correctly
+                        converged on the robot's location. This lab served as a key foundation for
+                        implementing localization on the real robot in Lab 11.
+                    </p>
                 </div>
             </section>
 
